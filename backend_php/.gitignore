@@ -1,0 +1,5 @@
+.env
+/vendor/
+*.log
+*service-account*.json
+*firebase-adminsdk*.json

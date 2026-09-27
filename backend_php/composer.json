@@ -1,0 +1,9 @@
+{
+  "name": "harvesthub/php-api",
+  "description": "HarvestHub PHP API for Flutter mobile",
+  "type": "project",
+  "require": {
+    "vlucas/phpdotenv": "^5.6",
+    "phpmailer/phpmailer": "^6.10"
+  }
+}
