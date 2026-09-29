@@ -4,6 +4,9 @@ HarvestHub is a Flutter application that connects customers with local farmers. 
 
 This README describes the existing source code. Some external services and the base MySQL schema need to be configured separately before the project can run fully.
 
+Admin Account:
+email: tcphana24039@cusc.ctu.edu.vn
+pass:  phan1509@
 ## Features
 
 - **Account and authentication:** login/register using email-password or Google, forgot password, profile completion, and role selection; the role is read from the backend.
