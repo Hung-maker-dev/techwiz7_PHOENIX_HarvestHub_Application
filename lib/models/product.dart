@@ -1,9 +1,3 @@
-/// Trạng thái hiển thị của sản phẩm — KHÔNG phải cột trong DB, mà do API
-/// suy ra từ `is_active`, `is_hidden` và `stock` (bảng `products` thật không
-/// có cột status riêng): is_active=0/is_hidden=1 -> hidden; stock<=0 ->
-/// out_of_stock; còn lại -> active. Farmer chỉ chỉnh được `isActive`
-/// (Đang bán/Đã ẩn) trực tiếp;
-/// "Hết hàng" là trạng thái tự động khi hết tồn kho.
 enum ProductStatus {
   active('active'),
   outOfStock('out_of_stock'),
@@ -20,10 +14,6 @@ enum ProductStatus {
   }
 }
 
-/// Model sản phẩm — dùng cho khu vực farmer quản lý sản phẩm của mình
-/// (GET/POST /api/farmer/products, GET/PUT/DELETE /api/farmer/products/:id).
-/// Field khớp đúng schema thật của bảng `products` (category_id bắt buộc,
-/// stock/min_stock, is_active, sold_count).
 class Product {
   final String id;
   final String farmerId;

@@ -6,9 +6,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../core/network/dio_client.dart';
 import '../core/theme/app_colors.dart';
 
-/// Toggle "VI/EN" bằng chữ — không dùng cờ quốc gia. Khi đổi ngôn ngữ:
-/// context.setLocale() (easy_localization tự ghi SharedPreferences), và nếu
-/// đã đăng nhập nên gọi thêm API cập nhật preferred_language (xem TODO).
 class LanguageSwitcher extends ConsumerWidget {
   const LanguageSwitcher({super.key});
 

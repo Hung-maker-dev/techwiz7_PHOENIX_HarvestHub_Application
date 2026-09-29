@@ -1,10 +1,3 @@
-// lib/features/admin/widgets/revenue_by_market_chart.dart
-//
-// Dùng ở Dashboard (4.1) và Reports (4.9), như đã nêu trong NGUOI_5_MOBILE.md
-// ("RevenueByMarketChart (fl_chart)"). fl_chart tự animate khi đổi dữ liệu
-// (swapAnimationDuration) nên không cần bọc thêm AnimatedSwitcher — tránh
-// animate 2 lớp chồng nhau.
-
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 

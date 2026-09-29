@@ -1,17 +1,3 @@
-// lib/data/api/admin_api.dart
-//
-// Tương đương "1 file / module backend" theo quy ước ở PROJECT_STRUCTURE.md
-// (data/api/). Gộp mọi endpoint /api/admin/* + /api/reports/* dùng bởi
-// module admin vào MỘT file (thay vì tách nhỏ theo từng màn 4.1-4.10) vì
-// chúng đều thuộc modules/admin + modules/reports phía server — mọi widget
-// gọi API phải đi qua đây, KHÔNG gọi `dio` thẳng trong page/widget.
-//
-// Giả định (cần Người 1 xác nhận khi merge):
-//   - `dioProvider` (Riverpod `Provider<Dio>`) được định nghĩa ở
-//     core/network/dio_client.dart, đã gắn interceptor Firebase ID token.
-//   - Base URL đọc từ ENV (API_BASE_URL) đã cấu hình sẵn trong Dio instance,
-//     nên các hàm dưới chỉ truyền path tương đối bắt đầu bằng /api/...
-
 import 'package:dio/dio.dart';
 
 import '../../models/admin/admin_category.dart';
@@ -32,17 +18,11 @@ class AdminApi {
 
   final Dio _dio;
 
-  // ---------------------------------------------------------------
-  // 4.1 Dashboard
-  // ---------------------------------------------------------------
   Future<DashboardSummary> fetchDashboardSummary() async {
     final res = await _dio.get('/api/reports/system/summary');
     return DashboardSummary.fromJson(res.data as Map<String, dynamic>);
   }
 
-  // ---------------------------------------------------------------
-  // 4.2 Khách hàng
-  // ---------------------------------------------------------------
   Future<List<AdminCustomer>> fetchCustomers({String? query}) async {
     final res = await _dio.get('/api/admin/customers', queryParameters: {
       if (query != null && query.isNotEmpty) 'q': query,
@@ -82,9 +62,6 @@ class AdminApi {
         .toList();
   }
 
-  // ---------------------------------------------------------------
-  // 4.3 Nông dân
-  // ---------------------------------------------------------------
   Future<List<AdminFarmer>> fetchFarmers({FarmerStatus? status}) async {
     final res = await _dio.get('/api/admin/farmers', queryParameters: {
       if (status != null) 'status': farmerStatusToString(status),
@@ -106,9 +83,6 @@ class AdminApi {
   Future<void> lockFarmer(String id, bool locked) =>
       _dio.patch('/api/admin/farmers/$id/lock', data: {'locked': locked});
 
-  // ---------------------------------------------------------------
-  // 4.4 Sản phẩm (kiểm duyệt)
-  // ---------------------------------------------------------------
   Future<List<AdminProduct>> fetchProducts({
     String? farmerId,
     String? categoryId,
@@ -128,9 +102,6 @@ class AdminApi {
   Future<void> hideProduct(String id, String reason) =>
       _dio.patch('/api/admin/products/$id/hide', data: {'reason': reason});
 
-  // ---------------------------------------------------------------
-  // 4.5 Danh mục
-  // ---------------------------------------------------------------
   Future<List<AdminCategory>> fetchCategories() async {
     final res = await _dio.get('/api/admin/categories');
     return (res.data as List)
@@ -159,9 +130,6 @@ class AdminApi {
         data: {'orderedIds': orderedIds},
       );
 
-  // ---------------------------------------------------------------
-  // 4.6 Chợ nông sản
-  // ---------------------------------------------------------------
   Future<List<AdminMarket>> fetchMarkets() async {
     final res = await _dio.get('/api/admin/markets');
     return (res.data as List)
@@ -182,9 +150,6 @@ class AdminApi {
 
   Future<void> deleteMarket(String id) => _dio.delete('/api/admin/markets/$id');
 
-  // ---------------------------------------------------------------
-  // 4.7 Đơn hàng (chỉ xem)
-  // ---------------------------------------------------------------
   Future<List<AdminOrder>> fetchOrders({
     String? status,
     String? marketId,
@@ -202,9 +167,6 @@ class AdminApi {
         .toList();
   }
 
-  // ---------------------------------------------------------------
-  // 4.8 Phản hồi liên hệ
-  // ---------------------------------------------------------------
   Future<List<AdminContactMessage>> fetchContactMessages({
     ContactMessageStatus? status,
   }) async {
@@ -219,9 +181,6 @@ class AdminApi {
   Future<void> resolveContactMessage(String id) =>
       _dio.patch('/api/admin/contact-messages/$id/resolve');
 
-  // ---------------------------------------------------------------
-  // 4.9 Báo cáo toàn hệ thống
-  // ---------------------------------------------------------------
   Future<SystemReport> fetchSystemReport(ReportPeriod period) async {
     final res = await _dio.get('/api/reports/system', queryParameters: {
       'period': period.apiValue,
@@ -230,9 +189,6 @@ class AdminApi {
         period: period);
   }
 
-  // ---------------------------------------------------------------
-  // 4.10 Nhật ký hoạt động (chỉ đọc)
-  // ---------------------------------------------------------------
   Future<List<AuditLogEntry>> fetchAuditLog({
     String? actorId,
     DateTime? from,

@@ -1,14 +1,3 @@
-// lib/features/admin/widgets/stat_card.dart
-//
-// Dùng ở Dashboard (4.1) và Reports (4.9). Count-up theo pattern #8
-// (ANIMATION_SYSTEM_MOBILE.md): TweenAnimationBuilder<double>(0 → giá trị
-// thật), AppDurations.emphasis + AppCurves.easeOut, chạy đúng 1 lần khi data
-// vừa tải xong. `_hasAnimated` dùng ValueKey theo `value` ở nơi gọi để reset
-// khi provider trả dữ liệu mới (vd đổi period ở Reports) — StatCard tự nó
-// luôn tween từ 0 mỗi khi được build mới với key khác, không tự lặp khi
-// rebuild cùng giá trị nhờ `TweenAnimationBuilder` chỉ animate khi tween
-// thay đổi.
-
 import 'package:flutter/material.dart';
 
 import '../../../core/theme/app_motion.dart';

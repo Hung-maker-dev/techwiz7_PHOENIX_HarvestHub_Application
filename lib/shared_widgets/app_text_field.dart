@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import '../core/theme/app_colors.dart';
 import '../core/theme/app_theme.dart';
 
-/// Field text dùng chung — label phía trên, lỗi hiện ngay dưới field
-/// (không dồn lỗi lên đầu form).
 class AppTextField extends StatelessWidget {
   const AppTextField({
     super.key,

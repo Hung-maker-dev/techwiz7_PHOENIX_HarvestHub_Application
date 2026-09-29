@@ -15,9 +15,6 @@ import '../../shared_widgets/app_text_field.dart';
 import '../../shared_widgets/app_toast.dart';
 import 'register_page.dart';
 
-/// 1.2 Đăng ký / Đăng nhập — route `/auth`. Chuyển giữa 2 form bằng
-/// AnimatedSwitcher crossfade 150ms (không dùng pattern nặng như bottom
-/// sheet/modal cho việc này).
 class LoginPage extends ConsumerStatefulWidget {
   const LoginPage({super.key});
 

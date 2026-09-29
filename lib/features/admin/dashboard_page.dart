@@ -1,5 +1,4 @@
 // lib/features/admin/dashboard_page.dart
-// Route: /admin (NGUOI_5_MOBILE.md, 4.1)
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';

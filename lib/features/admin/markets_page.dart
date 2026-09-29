@@ -1,5 +1,4 @@
 // lib/features/admin/markets_page.dart
-// Route: /admin/markets (NGUOI_5_MOBILE.md, 4.6)
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';

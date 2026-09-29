@@ -49,9 +49,7 @@ class ChatbotApi {
   Map<String, dynamic>? _cachedContext;
   DateTime? _contextCachedAt;
 
-  // ===========================  =================================
   // MAIN CHAT FUNCTION
-  // ============================================================
 
   Future<String> sendMessage({
     required String message,
@@ -111,9 +109,7 @@ class ChatbotApi {
             '"What products do you have?"';
   }
 
-  // ============================================================
   // GET CONTEXT FROM PHP API
-  // ============================================================
 
   Future<Map<String, dynamic>?> _getContext() async {
     final now = DateTime.now();
@@ -202,10 +198,7 @@ class ChatbotApi {
     }
   }
 
-  // ============================================================
   // HANDLER ORCHESTRATOR
-  // Thứ tự: Budget → Meal → Farmer → Market → Product
-  // ============================================================
 
   Future<String?> _answerFromHarvestHubData(
       String question, Map<String, dynamic> context,
@@ -262,9 +255,7 @@ class ChatbotApi {
     return productReply;
   }
 
-  // ============================================================
   // COMMON QUESTIONS
-  // ============================================================
 
   String? _answerCommonQuestion(
     String question, {
@@ -366,9 +357,7 @@ class ChatbotApi {
     ]);
   }
 
-  // ============================================================
   // VIETNAMESE DETECTION
-  // ============================================================
 
   bool _isVietnamese(String text) {
     final normalized = _normalize(text);

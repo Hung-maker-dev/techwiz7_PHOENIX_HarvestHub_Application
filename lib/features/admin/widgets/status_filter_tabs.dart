@@ -1,10 +1,3 @@
-// lib/features/admin/widgets/status_filter_tabs.dart
-//
-// Widget con dùng chung nội bộ module admin cho 4.3 (Tất cả/Chờ duyệt/Đã
-// duyệt/Từ chối) và 4.8 (Mới/Đã xử lý) — generic theo danh sách label/value
-// để không viết trùng 2 lần. Đây KHÔNG phải widget "nguyên liệu" chuyển
-// vào shared_widgets/ vì chỉ admin dùng.
-
 import 'package:flutter/material.dart';
 
 class StatusFilterTabs<T> extends StatelessWidget {

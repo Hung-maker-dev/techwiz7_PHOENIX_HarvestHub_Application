@@ -4,8 +4,6 @@ import '../core/theme/app_theme.dart';
 
 enum AppModalSize { sm, md, lg }
 
-/// Hộp thoại nhỏ giữa màn hình (pattern #3). Đóng bằng nút back của hệ
-/// thống, chạm backdrop, hoặc nút X.
 class AppModal {
   AppModal._();
 
@@ -25,7 +23,8 @@ class AppModal {
     return showDialog<T>(
       context: context,
       builder: (context) => Dialog(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(AppRadius.card)),
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(AppRadius.card)),
         child: ConstrainedBox(
           constraints: BoxConstraints(maxWidth: width),
           child: Padding(
@@ -37,10 +36,13 @@ class AppModal {
                 Row(
                   children: [
                     Expanded(
-                      child: Text(title, style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w700)),
+                      child: Text(title,
+                          style: const TextStyle(
+                              fontSize: 18, fontWeight: FontWeight.w700)),
                     ),
                     IconButton(
-                      icon: const Icon(Icons.close, color: AppColors.textSecondary),
+                      icon: const Icon(Icons.close,
+                          color: AppColors.textSecondary),
                       onPressed: () => Navigator.of(context).pop(),
                     ),
                   ],
@@ -49,7 +51,9 @@ class AppModal {
                 content,
                 if (actions != null) ...[
                   const SizedBox(height: AppSpace.space2),
-                  Row(mainAxisAlignment: MainAxisAlignment.end, children: actions),
+                  Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: actions),
                 ],
               ],
             ),

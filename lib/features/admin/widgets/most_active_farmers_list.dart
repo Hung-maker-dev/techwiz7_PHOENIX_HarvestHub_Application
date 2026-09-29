@@ -1,8 +1,3 @@
-// lib/features/admin/widgets/most_active_farmers_list.dart
-//
-// Dùng ở Dashboard (4.1: "nông dân tích cực nhất") và Reports (4.9:
-// "MostActiveFarmersList").
-
 import 'package:flutter/material.dart';
 
 import '../../../models/admin/dashboard_summary.dart';

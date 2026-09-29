@@ -6,9 +6,6 @@ import '../../core/theme/app_colors.dart';
 import '../../core/theme/app_theme.dart';
 import '../../shared_widgets/app_card.dart';
 
-/// 1.1 Chọn vai trò — route `/`. Nội dung tĩnh, không gọi API.
-/// Animation: chỉ dùng route transition mặc định (pattern #7), không cần
-/// pattern riêng cho màn hình này.
 class LandingPage extends StatelessWidget {
   const LandingPage({super.key});
 

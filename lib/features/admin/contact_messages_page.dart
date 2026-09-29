@@ -1,6 +1,3 @@
-// lib/features/admin/contact_messages_page.dart
-// Route: /admin/contact-messages (NGUOI_5_MOBILE.md, 4.8)
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -15,8 +12,6 @@ import 'admin_localization.dart';
 class AdminContactMessagesPage extends ConsumerStatefulWidget {
   const AdminContactMessagesPage({super.key, this.initialStatus});
 
-  /// Điều hướng thẳng từ Dashboard (4.1 PendingActionsList) với tab "Mới"
-  /// đã chọn sẵn.
   final ContactMessageStatus? initialStatus;
 
   @override

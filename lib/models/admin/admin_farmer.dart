@@ -1,15 +1,3 @@
-// lib/models/admin/admin_farmer.dart
-//
-// Khớp bảng `farmers` + cột bổ sung updated_at/deleted_at
-// (harvesthub_mysql_migration.sql, khối 1). Đặt tên `AdminFarmer` (không
-// phải `Farmer`) để không đụng model `Farmer` phía Người 4
-// (features/farmer) khi merge — cùng thực thể nhưng hai model độc lập theo
-// đúng nguyên tắc "không dùng chung widget/model giữa các role" đã nêu ở
-// đầu NGUOI_5_MOBILE.md.
-//
-// Dùng cho GET /api/admin/farmers?status=,
-// PATCH /api/admin/farmers/:id/approve|reject|lock (4.3).
-
 enum FarmerStatus { pending, approved, rejected }
 
 FarmerStatus farmerStatusFromString(String value) {

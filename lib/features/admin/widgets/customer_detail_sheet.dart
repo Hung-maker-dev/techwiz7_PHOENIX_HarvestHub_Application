@@ -1,10 +1,3 @@
-// lib/features/admin/widgets/customer_detail_sheet.dart
-//
-// 4.2 (quyết định): "Drawer từ phải của bản web → showModalBottomSheet
-// (isScrollControlled: true) trên mobile, giữ nguyên ngữ cảnh danh sách phía
-// sau" — cùng nguyên tắc pattern #3 của ANIMATION_SYSTEM_MOBILE.md (mọi
-// panel chi tiết trên mobile quy về bottom sheet).
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -12,10 +5,6 @@ import '../../../models/admin/admin_customer.dart';
 import '../../../providers/admin/admin_providers.dart';
 import '../admin_localization.dart';
 
-/// Mở sheet ngay với dữ liệu đã có từ danh sách (phản hồi tức thì), đồng
-/// thời gọi GET /api/admin/customers/:id (`customerDetailProvider`) để lấy
-/// thêm `orderCount`/`totalSpent` — chỉ có ở endpoint chi tiết, không có ở
-/// GET /api/admin/customers?q= theo đúng mô tả 4.2.
 Future<void> showCustomerDetailSheet(
   BuildContext context, {
   required AdminCustomer customer,

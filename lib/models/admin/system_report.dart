@@ -1,10 +1,3 @@
-// lib/models/admin/system_report.dart
-//
-// Dùng cho GET /api/reports/system?period= (4.9). Tái dùng MarketRevenue /
-// ActiveFarmerSummary từ dashboard_summary.dart để không lặp model giữa
-// Dashboard (4.1) và Reports (4.9) — hai màn dùng chung shape dữ liệu theo
-// đúng mô tả "RevenueByMarketChart, MostActiveFarmersList" ở cả hai nơi.
-
 import 'dashboard_summary.dart';
 
 enum ReportPeriod { week, month, quarter, year }

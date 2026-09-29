@@ -1,5 +1,3 @@
-/// Danh mục sản phẩm — khớp bảng `categories`. `products.category_id` bắt
-/// buộc phải là một id có thật trong bảng này (khoá ngoại NOT NULL).
 class Category {
   final String id;
   final String name;

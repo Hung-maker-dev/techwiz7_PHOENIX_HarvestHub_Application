@@ -1,10 +1,3 @@
-// lib/features/admin/widgets/farmer_list_tile.dart
-//
-// 4.3: nút Duyệt/Từ chối NGAY TRÊN THẺ khi status=='pending' (không mở sheet
-// riêng), Switch khóa/mở khóa cho tài khoản vi phạm. Việc thẻ rời khỏi tab
-// "Chờ duyệt" sau khi xử lý (pattern #11) được bọc ở AnimatedSize từ nơi gọi
-// (farmers_page.dart), widget này chỉ là nội dung thẻ.
-
 import 'package:flutter/material.dart';
 
 import '../../../models/admin/admin_farmer.dart';

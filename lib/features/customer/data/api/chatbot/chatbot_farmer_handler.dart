@@ -22,10 +22,6 @@ class ChatbotFarmerHandler {
       return null;
     }
 
-// ============================================================
-// 1. XÁC ĐỊNH CÂU HỎI FARMER
-// ============================================================
-
     final isFarmerQuestion = _isFarmerQuestion(normalizedQuestion);
     final matchedFarmers = _findMatchingFarmers(
       normalizedQuestion,
@@ -66,15 +62,6 @@ class ChatbotFarmerHandler {
       );
     }
 
-// ============================================================
-// 2. SELLER / FARMER CỦA MỘT SẢN PHẨM
-//
-// Ví dụ:
-// - Ai bán gạo ST25?
-// - Who sells ST25 Rice?
-// - Who is selling King Banana?
-// ============================================================
-
     if (isSellerQuestion) {
       final matchingProducts = _findMatchingAvailableProducts(
         normalizedQuestion,
@@ -98,14 +85,6 @@ class ChatbotFarmerHandler {
           : 'I could not find a farm with this product in stock.';
     }
 
-// ============================================================
-// 3. TÌM FARMER CỤ THỂ
-//
-// Ví dụ:
-// - Tell me about Minh Phat Farm
-// - Thông tin về Trang trại Minh Phát
-// ============================================================
-
     if (matchedFarmers.isNotEmpty) {
       return _formatFarmers(
         matchedFarmers,
@@ -116,14 +95,6 @@ class ChatbotFarmerHandler {
       );
     }
 
-// ============================================================
-// 4. FARMER LIST
-//
-// Ví dụ:
-// - Who are the farmers?
-// - Danh sách nông dân?
-// ============================================================
-
     if (_isGenericFarmerQuestion(normalizedQuestion)) {
       return _formatFarmers(
         farmers,
@@ -133,18 +104,12 @@ class ChatbotFarmerHandler {
       );
     }
 
-// ============================================================
-// 5. CÓ Ý HỎI FARMER NHƯNG KHÔNG TÌM THẤY
-// ============================================================
-
     return isVietnamese
         ? 'Tôi không tìm thấy nông dân đó trong dữ liệu HarvestHub hiện tại.'
         : 'I could not find that farmer in the current HarvestHub data.';
   }
 
-// ============================================================
 // FARMER QUESTION DETECTION
-// ============================================================
 
   bool _isFarmerQuestion(String question) {
     if (_containsAny(question, [
@@ -233,9 +198,7 @@ class ChatbotFarmerHandler {
         sellerScore >= 1;
   }
 
-// ============================================================
 // GENERIC FARMER QUESTION
-// ============================================================
 
   bool _isGenericFarmerQuestion(String question) {
     if (_containsAny(question, [
@@ -316,9 +279,7 @@ class ChatbotFarmerHandler {
     return farmerScore >= 1 && listScore >= 1;
   }
 
-// ============================================================
 // SELLER QUESTION
-// ============================================================
 
   bool _isSellerQuestion(String question) {
     if (_containsAny(question, [
@@ -431,9 +392,7 @@ class ChatbotFarmerHandler {
     ]);
   }
 
-// ============================================================
 // FIND FARMERS
-// ============================================================
 
   List<Map<String, dynamic>> _findMatchingFarmers(
     String question,
@@ -476,16 +435,7 @@ class ChatbotFarmerHandler {
         .toList();
   }
 
-// ============================================================
 // FARMER MATCH SCORE
-//
-// Ưu tiên:
-// 1. Exact full name
-// 2. Full phrase
-// 3. Tất cả từ có nghĩa
-// 4. Từng từ
-// 5. Prefix cơ bản
-// ============================================================
 
   int _farmerMatchScore(
     String question,
@@ -553,15 +503,12 @@ class ChatbotFarmerHandler {
     return bestScore;
   }
 
-// ============================================================
 // FIND FARMER BY PRODUCT
 //
 // products[].farmer_id
 //        ↓
 // farmers[].id
 //
-// Hoàn toàn dynamic từ database.
-// ============================================================
 
   List<Map<String, dynamic>> _findMatchingAvailableProducts(
     String question,
@@ -679,9 +626,7 @@ class ChatbotFarmerHandler {
     return '$heading\n${lines.join('\n')}';
   }
 
-// ============================================================
 // PRODUCT MATCH SCORE
-// ============================================================
 
   int _productMatchScore(
     String question,
@@ -743,9 +688,7 @@ class ChatbotFarmerHandler {
     return bestScore;
   }
 
-// ============================================================
 // FORMAT FARMERS
-// ============================================================
 
   String _formatFarmers(
     List<Map<String, dynamic>> farmers,
@@ -1035,9 +978,7 @@ class ChatbotFarmerHandler {
     return '';
   }
 
-// ============================================================
 // FARMER DISPLAY NAME
-// ============================================================
 
   String _farmerDisplayName(
     Map<String, dynamic> farmer, {
@@ -1102,9 +1043,7 @@ class ChatbotFarmerHandler {
     );
   }
 
-// ============================================================
 // FARMER DESCRIPTION
-// ============================================================
 
   String _farmerDescription(
     Map<String, dynamic> farmer, {
@@ -1137,9 +1076,7 @@ class ChatbotFarmerHandler {
     );
   }
 
-// ============================================================
 // MARKET DISPLAY NAME
-// ============================================================
 
   String _marketDisplayName(
     Map<String, dynamic> farmer, {
@@ -1195,9 +1132,7 @@ class ChatbotFarmerHandler {
     return nameVi;
   }
 
-// ============================================================
 // STATUS
-// ============================================================
 
   String _formatStatus(
     String status, {
@@ -1221,9 +1156,7 @@ class ChatbotFarmerHandler {
     }
   }
 
-// ============================================================
 // MEANINGFUL FARMER WORDS
-// ============================================================
 
   List<String> _meaningfulWords(String value) {
     const genericWords = {
@@ -1266,9 +1199,7 @@ class ChatbotFarmerHandler {
         .toList();
   }
 
-// ============================================================
 // MEANINGFUL PRODUCT WORDS
-// ============================================================
 
   List<String> _meaningfulProductWords(String value) {
     const genericWords = {
@@ -1305,9 +1236,7 @@ class ChatbotFarmerHandler {
         .toList();
   }
 
-// ============================================================
 // PREFIX MATCH
-// ============================================================
 
   bool _hasPrefixMatch(
     String question,
@@ -1327,9 +1256,7 @@ class ChatbotFarmerHandler {
     return false;
   }
 
-// ============================================================
 // KEYWORD SCORE
-// ============================================================
 
   int _keywordScore(
     String question,
@@ -1367,9 +1294,7 @@ class ChatbotFarmerHandler {
     return score;
   }
 
-// ============================================================
 // ACTIVE FARMER
-// ============================================================
 
   bool _isActiveFarmerForSearch(
     Map<String, dynamic> farmer,
@@ -1391,9 +1316,7 @@ class ChatbotFarmerHandler {
     return true;
   }
 
-// ============================================================
 // ACTIVE PRODUCT
-// ============================================================
 
   bool _isActiveProduct(
     Map<String, dynamic> product,
@@ -1427,9 +1350,7 @@ class ChatbotFarmerHandler {
     return parts.length == 1 ? grouped : '$grouped.${parts[1]}';
   }
 
-// ============================================================
 // WHOLE PHRASE
-// ============================================================
 
   bool _containsWholePhrase(
     String text,
@@ -1446,9 +1367,7 @@ class ChatbotFarmerHandler {
     return pattern.hasMatch(text);
   }
 
-// ============================================================
 // LANGUAGE
-// ============================================================
 
   bool _isVietnamese(String text) {
     if (text.trim().isEmpty) {
@@ -1514,9 +1433,7 @@ class ChatbotFarmerHandler {
     );
   }
 
-// ============================================================
 // MAP LIST
-// ============================================================
 
   List<Map<String, dynamic>> _mapList(
     dynamic raw,
@@ -1533,9 +1450,7 @@ class ChatbotFarmerHandler {
         .toList();
   }
 
-// ============================================================
 // STRING
-// ============================================================
 
   String _stringValue(
     dynamic value,
@@ -1543,9 +1458,7 @@ class ChatbotFarmerHandler {
     return value?.toString().trim() ?? '';
   }
 
-// ============================================================
 // NUMBER
-// ============================================================
 
   double? _numberValue(
     dynamic value,
@@ -1559,9 +1472,7 @@ class ChatbotFarmerHandler {
     );
   }
 
-// ============================================================
 // NORMALIZATION
-// ============================================================
 
   String _normalize(
     String text,
@@ -1659,9 +1570,7 @@ class ChatbotFarmerHandler {
         .trim();
   }
 
-// ============================================================
 // CONTAINS ANY
-// ============================================================
 
   bool _containsAny(
     String text,
@@ -1687,10 +1596,6 @@ class ChatbotFarmerHandler {
     );
   }
 
-// ============================================================
-// MAX
-// ============================================================
-
   int _max(
     int a,
     int b,
@@ -1698,10 +1603,6 @@ class ChatbotFarmerHandler {
     return a > b ? a : b;
   }
 }
-
-// ============================================================
-// FARMER MATCH
-// ============================================================
 
 class _FarmerMatch {
   const _FarmerMatch({
@@ -1712,10 +1613,6 @@ class _FarmerMatch {
   final Map<String, dynamic> farmer;
   final int score;
 }
-
-// ============================================================
-// PRODUCT MATCH
-// ============================================================
 
 class _ProductMatch {
   const _ProductMatch({

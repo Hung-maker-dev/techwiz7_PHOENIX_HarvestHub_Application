@@ -1,7 +1,3 @@
-// lib/features/admin/widgets/message_detail_sheet.dart
-//
-// 4.8: `MessageDetailSheet` với nút "Đánh dấu đã xử lý" (pattern #3).
-
 import 'package:flutter/material.dart';
 
 import '../../../models/admin/admin_contact_message.dart';

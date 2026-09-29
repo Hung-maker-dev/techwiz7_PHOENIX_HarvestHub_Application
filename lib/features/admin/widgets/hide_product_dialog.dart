@@ -1,8 +1,3 @@
-// lib/features/admin/widgets/hide_product_dialog.dart
-//
-// 4.4: "hành động 'Ẩn sản phẩm' (kiểm duyệt nội dung) mở AlertDialog với ô
-// lý do bắt buộc." Trả về chuỗi lý do khi xác nhận, null khi huỷ.
-
 import 'package:flutter/material.dart';
 import '../admin_localization.dart';
 

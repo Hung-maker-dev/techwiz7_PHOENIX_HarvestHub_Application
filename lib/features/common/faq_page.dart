@@ -11,7 +11,6 @@ import '../../shared_widgets/app_button.dart';
 import '../../shared_widgets/app_card.dart';
 import '../../shared_widgets/app_text_field.dart';
 
-/// 1.6 FAQ — route `/faq`. Dữ liệu tĩnh nhóm theo chủ đề, không cần API.
 class FaqPage extends ConsumerStatefulWidget {
   const FaqPage({super.key});
 

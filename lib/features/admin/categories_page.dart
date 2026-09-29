@@ -1,6 +1,3 @@
-// lib/features/admin/categories_page.dart
-// Route: /admin/categories (NGUOI_5_MOBILE.md, 4.5)
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -19,10 +16,6 @@ class AdminCategoriesPage extends ConsumerStatefulWidget {
 }
 
 class _AdminCategoriesPageState extends ConsumerState<AdminCategoriesPage> {
-  /// Bản sao cục bộ để `ReorderableListView.onReorder` cập nhật ngay
-  /// (mượt khi kéo), rồi mới gửi mảng id mới lên server — đúng luồng mô tả
-  /// ở 4.5 ("gửi mảng id theo thứ tự mới sau khi onReorder cập nhật local
-  /// state").
   List<AdminCategory>? _localOrder;
 
   @override

@@ -1,10 +1,3 @@
-// lib/models/admin/admin_customer.dart
-//
-// Khớp bảng `users` (role = 'customer') + cột bổ sung ở
-// harvesthub_mysql_migration.sql (auth_provider, preferred_language).
-// Dùng cho GET /api/admin/customers?q= và GET /api/admin/customers/:id
-// (NGUOI_5_MOBILE.md, 4.2).
-
 class AdminCustomer {
   final String id;
   final String name;

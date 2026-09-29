@@ -2,9 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import '../core/theme/app_colors.dart';
 
-/// AppBar dùng ở luồng khách hàng. `cartIconKey` là điểm neo cho pattern #1
-/// (bay ảnh sản phẩm vào giỏ) — Người 2 truyền GlobalKey của icon giỏ hàng
-/// khi gắn overlay animation ở Shop/ProductDetail/Cart.
 class AppBarMain extends StatelessWidget implements PreferredSizeWidget {
   const AppBarMain({
     super.key,
@@ -47,9 +44,12 @@ class AppBarMain extends StatelessWidget implements PreferredSizeWidget {
                   ),
                   child: const Row(
                     children: [
-                      Icon(Icons.search, size: 18, color: AppColors.textSecondary),
+                      Icon(Icons.search,
+                          size: 18, color: AppColors.textSecondary),
                       SizedBox(width: 6),
-                      Text('Tìm kiếm...', style: TextStyle(color: AppColors.textSecondary, fontSize: 13)),
+                      Text('Tìm kiếm...',
+                          style: TextStyle(
+                              color: AppColors.textSecondary, fontSize: 13)),
                     ],
                   ),
                 ),
@@ -75,7 +75,8 @@ class AppBarMain extends StatelessWidget implements PreferredSizeWidget {
               ),
           ],
         ),
-        IconButton(icon: const Icon(Icons.person_outline), onPressed: onAccountTap),
+        IconButton(
+            icon: const Icon(Icons.person_outline), onPressed: onAccountTap),
       ],
     );
   }
@@ -87,7 +88,8 @@ class _Logo extends StatelessWidget {
   Widget build(BuildContext context) {
     return const Text(
       'HarvestHub',
-      style: TextStyle(fontWeight: FontWeight.w800, fontSize: 16, color: AppColors.primary),
+      style: TextStyle(
+          fontWeight: FontWeight.w800, fontSize: 16, color: AppColors.primary),
     );
   }
 }
@@ -112,21 +114,27 @@ class _CartBadgeState extends State<_CartBadge> {
     Widget badge = Container(
       padding: const EdgeInsets.all(3),
       constraints: const BoxConstraints(minWidth: 16, minHeight: 16),
-      decoration: const BoxDecoration(color: AppColors.danger, shape: BoxShape.circle),
+      decoration:
+          const BoxDecoration(color: AppColors.danger, shape: BoxShape.circle),
       child: Center(
         child: Text(
           '${widget.count}',
-          style: const TextStyle(color: Colors.white, fontSize: 10, fontWeight: FontWeight.w700),
+          style: const TextStyle(
+              color: Colors.white, fontSize: 10, fontWeight: FontWeight.w700),
         ),
       ),
     );
 
     if (changed) {
-      badge = badge.animate(key: ValueKey(widget.count)).scale(
+      badge = badge
+          .animate(key: ValueKey(widget.count))
+          .scale(
             duration: 200.ms,
             begin: const Offset(1, 1),
             end: const Offset(1.15, 1.15),
-          ).then().scale(
+          )
+          .then()
+          .scale(
             duration: 100.ms,
             begin: const Offset(1.15, 1.15),
             end: const Offset(1, 1),

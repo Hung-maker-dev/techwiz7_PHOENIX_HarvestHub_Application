@@ -1,10 +1,3 @@
-// lib/features/admin/widgets/admin_product_list_tile.dart
-//
-// "danh sách thẻ sản phẩm" của 4.4. Đặt tên `AdminProductListTile` (khác
-// `ProductListTile`/`product_card.dart` ở shared_widgets/ dùng cho
-// Shop/Wishlist/FarmerProfile phía khách hàng) vì thẻ ở đây cần hiện thêm
-// trạng thái kiểm duyệt + nút Ẩn mà thẻ khách hàng không có.
-
 import 'package:flutter/material.dart';
 
 import '../../../models/admin/admin_product.dart';

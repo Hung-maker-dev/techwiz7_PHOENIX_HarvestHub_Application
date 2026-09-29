@@ -1,5 +1,4 @@
 // lib/features/admin/customers_page.dart
-// Route: /admin/customers (NGUOI_5_MOBILE.md, 4.2)
 
 import 'dart:async';
 

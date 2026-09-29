@@ -7,9 +7,6 @@ import '../../shared_widgets/app_button.dart';
 import '../../shared_widgets/app_text_field.dart';
 import '../../shared_widgets/app_toast.dart';
 
-/// Nội dung form đăng ký — được `login_page.dart` chuyển vào bằng
-/// AnimatedSwitcher crossfade 150ms, không phải route riêng
-/// (route /auth dùng chung cho cả đăng nhập và đăng ký, theo mục 1.2).
 class RegisterForm extends StatefulWidget {
   const RegisterForm({
     super.key,

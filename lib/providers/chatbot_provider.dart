@@ -5,9 +5,7 @@ import '../core/network/dio_client.dart';
 import '../features/customer/data/api/chatbot_api.dart';
 import '../models/chat_message.dart';
 
-// ============================================================
 // STATE
-// ============================================================
 
 class ChatbotState {
   final List<ChatMessage> messages;
@@ -33,9 +31,7 @@ class ChatbotState {
   }
 }
 
-// ============================================================
 // CONTROLLER
-// ============================================================
 
 class ChatbotController extends StateNotifier<ChatbotState> {
   ChatbotController(this._api) : super(const ChatbotState());

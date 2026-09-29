@@ -1,10 +1,3 @@
-// lib/features/admin/widgets/pending_actions_list.dart
-//
-// 4.1: "PendingActionsList (farmer chờ duyệt, contact message mới — mỗi mục
-// link thẳng tới màn hình tương ứng đã lọc sẵn)". Điều hướng dùng go_router
-// context.push với route đã set sẵn query filter (xem
-// `PendingAction.route` trong models/admin/dashboard_summary.dart).
-
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 

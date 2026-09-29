@@ -1,5 +1,4 @@
 // lib/features/admin/farmers_page.dart
-// Route: /admin/farmers (NGUOI_5_MOBILE.md, 4.3)
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -15,8 +14,6 @@ import 'admin_localization.dart';
 class AdminFarmersPage extends ConsumerStatefulWidget {
   const AdminFarmersPage({super.key, this.initialStatus});
 
-  /// Cho phép Dashboard (4.1) điều hướng thẳng vào tab đã lọc sẵn qua
-  /// route '/admin/farmers?status=pending' (PendingActionsList).
   final FarmerStatus? initialStatus;
 
   @override
@@ -24,9 +21,6 @@ class AdminFarmersPage extends ConsumerStatefulWidget {
 }
 
 class _AdminFarmersPageState extends ConsumerState<AdminFarmersPage> {
-  /// Đang xử lý (đã bấm Duyệt/Từ chối, chờ animation #11 chạy xong) —
-  /// dùng để tạm ẩn nút hành động trên thẻ và tránh double-tap trong lúc
-  /// AnimatedSize đang thu gọn thẻ về 0.
   final Set<String> _removing = {};
 
   @override
@@ -101,10 +95,6 @@ class _AdminFarmersPageState extends ConsumerState<AdminFarmersPage> {
                   itemBuilder: (context, index) {
                     final f = farmers[index];
                     final isRemoving = _removing.contains(f.id);
-                    // Pattern #11: thẻ vừa Duyệt/Từ chối thu gọn chiều cao
-                    // về 0 + fade (~250ms) thay vì biến mất đột ngột. Bọc
-                    // TỪNG item trong AnimatedSize, không rebuild lại toàn
-                    // ListView.
                     return AnimatedSize(
                       duration: Duration(milliseconds: 250),
                       curve: Curves.easeOut,
@@ -134,9 +124,6 @@ class _AdminFarmersPageState extends ConsumerState<AdminFarmersPage> {
 
   Future<void> _handleApprove(
       AdminFarmer f, FarmerActionsNotifier actions) async {
-    // Chỉ chạy hiệu ứng rời-khỏi-danh-sách khi đang ở tab lọc "Chờ duyệt"
-    // hoặc "Tất cả" (thẻ sẽ đổi badge tại chỗ, không biến mất) — theo đúng
-    // ngữ cảnh mô tả 4.3 & pattern #11 ("rời khỏi tab Chờ duyệt").
     final onlyPendingTab =
         ref.read(farmerStatusFilterProvider) == FarmerStatus.pending;
     if (onlyPendingTab) setState(() => _removing.add(f.id));

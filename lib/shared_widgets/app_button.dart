@@ -6,9 +6,6 @@ enum AppButtonVariant { primary, secondary, ghost, danger }
 
 enum AppButtonSize { sm, md, lg }
 
-/// Nút dùng chung toàn app. Khi [loading] = true: chữ vẫn hiện, icon được
-/// thay bằng CircularProgressIndicator nhỏ, và onPressed tự vô hiệu hoá
-/// để chống double-submit (không cần feature code tự quản lý cờ này).
 class AppButton extends StatelessWidget {
   const AppButton({
     super.key,
@@ -50,7 +47,8 @@ class AppButton extends StatelessWidget {
         else if (icon != null)
           Icon(icon, size: 18, color: colors.fg),
         if (loading || icon != null) const SizedBox(width: 8),
-        Text(label, style: TextStyle(color: colors.fg, fontWeight: FontWeight.w600)),
+        Text(label,
+            style: TextStyle(color: colors.fg, fontWeight: FontWeight.w600)),
       ],
     );
 
@@ -64,7 +62,9 @@ class AppButton extends StatelessWidget {
           elevation: 0,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(AppRadius.control),
-            side: colors.border != null ? BorderSide(color: colors.border!) : BorderSide.none,
+            side: colors.border != null
+                ? BorderSide(color: colors.border!)
+                : BorderSide.none,
           ),
         ),
         child: child,
@@ -77,7 +77,10 @@ class AppButton extends StatelessWidget {
       case AppButtonVariant.primary:
         return _ButtonColors(bg: AppColors.primary, fg: Colors.white);
       case AppButtonVariant.secondary:
-        return _ButtonColors(bg: AppColors.surface, fg: AppColors.text, border: AppColors.border);
+        return _ButtonColors(
+            bg: AppColors.surface,
+            fg: AppColors.text,
+            border: AppColors.border);
       case AppButtonVariant.ghost:
         return _ButtonColors(bg: Colors.transparent, fg: AppColors.primary);
       case AppButtonVariant.danger:

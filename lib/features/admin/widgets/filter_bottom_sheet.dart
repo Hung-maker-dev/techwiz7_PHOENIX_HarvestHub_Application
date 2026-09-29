@@ -1,11 +1,3 @@
-// lib/features/admin/widgets/filter_bottom_sheet.dart
-//
-// Khung `FilterBottomSheet` dùng chung cho 4.4 (nông dân/danh mục/trạng
-// thái), 4.7 (trạng thái/chợ/khoảng thời gian) và 4.10 (người thực hiện/
-// khoảng thời gian) — mỗi màn tự truyền `child` là form field riêng, khung
-// chỉ lo phần bottom-sheet + nút Áp dụng/Đặt lại (pattern #3: mọi bộ lọc
-// trên mobile quy về `showModalBottomSheet`).
-
 import 'package:flutter/material.dart';
 import '../admin_localization.dart';
 

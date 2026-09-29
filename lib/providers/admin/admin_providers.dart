@@ -1,13 +1,3 @@
-// lib/providers/admin/admin_providers.dart
-//
-// State cho toàn bộ module admin. Đặt riêng thư mục providers/admin/ (khác
-// providers/ gốc chỉ chứa auth/cart/connectivity/ui theo đúng phạm vi đã
-// chốt ở PROJECT_STRUCTURE.md — "PHẠM VI CHỈ state UI + auth + cart"), vì
-// các provider dưới đây là state riêng của từng màn quản trị, không phải
-// state toàn app.
-//
-// Giả định khi merge: `dioProvider` tồn tại ở core/network/dio_client.dart.
-
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../data/api/admin_api.dart';
@@ -28,18 +18,11 @@ final adminApiProvider = Provider<AdminApi>((ref) {
   return AdminApi(ref.watch(dioProvider));
 });
 
-// ---------------------------------------------------------------------
-// 4.1 Dashboard
-// ---------------------------------------------------------------------
 final dashboardSummaryProvider =
     FutureProvider.autoDispose<DashboardSummary>((ref) {
   return ref.watch(adminApiProvider).fetchDashboardSummary();
 });
 
-// ---------------------------------------------------------------------
-// 4.2 Khách hàng — search query là state cục bộ của trang, tách riêng để
-// SearchBar debounce mà không rebuild toàn bộ list provider ngoài ý muốn.
-// ---------------------------------------------------------------------
 final customerSearchQueryProvider =
     StateProvider.autoDispose<String>((ref) => '');
 
@@ -74,9 +57,6 @@ final adminAccountsProvider =
       );
 });
 
-// ---------------------------------------------------------------------
-// 4.3 Nông dân
-// ---------------------------------------------------------------------
 final farmerStatusFilterProvider =
     StateProvider.autoDispose<FarmerStatus?>((ref) => FarmerStatus.pending);
 
@@ -119,9 +99,6 @@ final farmerActionsProvider =
   return FarmerActionsNotifier(ref);
 });
 
-// ---------------------------------------------------------------------
-// 4.4 Sản phẩm
-// ---------------------------------------------------------------------
 class ProductFilter {
   final String? farmerId;
   final String? categoryId;
@@ -160,9 +137,6 @@ final hideProductProvider =
   };
 });
 
-// ---------------------------------------------------------------------
-// 4.5 Danh mục
-// ---------------------------------------------------------------------
 final categoriesProvider =
     FutureProvider.autoDispose<List<AdminCategory>>((ref) {
   return ref.watch(adminApiProvider).fetchCategories();
@@ -187,9 +161,6 @@ class CategoryActionsNotifier {
     _ref.invalidate(categoriesProvider);
   }
 
-  /// Gọi ngay sau khi `onReorder` cập nhật local state của
-  /// `ReorderableListView` (không chờ round-trip server mới cho phép kéo
-  /// tiếp — cập nhật optimistic UI, server call chạy nền).
   Future<void> reorder(List<String> orderedIds) async {
     await _ref.read(adminApiProvider).reorderCategories(orderedIds);
     _ref.invalidate(categoriesProvider);
@@ -201,9 +172,6 @@ final categoryActionsProvider =
   return CategoryActionsNotifier(ref);
 });
 
-// ---------------------------------------------------------------------
-// 4.6 Chợ nông sản
-// ---------------------------------------------------------------------
 final marketsProvider = FutureProvider.autoDispose<List<AdminMarket>>((ref) {
   return ref.watch(adminApiProvider).fetchMarkets();
 });
@@ -233,9 +201,6 @@ final marketActionsProvider =
   return MarketActionsNotifier(ref);
 });
 
-// ---------------------------------------------------------------------
-// 4.7 Đơn hàng (chỉ xem)
-// ---------------------------------------------------------------------
 class OrderFilter {
   final String? status;
   final String? marketId;
@@ -271,9 +236,6 @@ final adminOrdersProvider = FutureProvider.autoDispose<List<AdminOrder>>((ref) {
       );
 });
 
-// ---------------------------------------------------------------------
-// 4.8 Phản hồi liên hệ
-// ---------------------------------------------------------------------
 final contactStatusFilterProvider =
     StateProvider.autoDispose<ContactMessageStatus>(
         (ref) => ContactMessageStatus.pending);
@@ -293,9 +255,6 @@ final resolveContactMessageProvider =
   };
 });
 
-// ---------------------------------------------------------------------
-// 4.9 Báo cáo toàn hệ thống
-// ---------------------------------------------------------------------
 final reportPeriodProvider =
     StateProvider.autoDispose<ReportPeriod>((ref) => ReportPeriod.month);
 
@@ -304,9 +263,6 @@ final systemReportProvider = FutureProvider.autoDispose<SystemReport>((ref) {
   return ref.watch(adminApiProvider).fetchSystemReport(period);
 });
 
-// ---------------------------------------------------------------------
-// 4.10 Nhật ký hoạt động
-// ---------------------------------------------------------------------
 class AuditLogFilter {
   final String? actorId;
   final DateTime? from;

@@ -5,9 +5,6 @@ import '../core/providers/app_providers.dart';
 import '../core/theme/app_colors.dart';
 import '../core/theme/app_motion.dart';
 
-/// Pattern #10: dải màu accent mỏng (4px) fade in/out ngay dưới AppBar khi
-/// mất/có mạng trở lại — không dùng dialog chặn thao tác. Mount MỘT LẦN
-/// ở gốc cây widget (app.dart), không lặp lại ở từng màn hình.
 class OfflineBanner extends ConsumerWidget {
   const OfflineBanner({super.key});
 
@@ -33,11 +30,10 @@ class OfflineBanner extends ConsumerWidget {
     );
   }
 
-  Widget? _label(BuildContext context) => null; // dải màu thuần theo spec, không chữ
+  Widget? _label(BuildContext context) =>
+      null; // dải màu thuần theo spec, không chữ
 }
 
-/// Biến thể có nhãn text — dùng ở màn hình muốn hiện rõ thông điệp
-/// 'common.shared.offline' thay vì chỉ dải màu.
 class OfflineBannerWithLabel extends ConsumerWidget {
   const OfflineBannerWithLabel({super.key});
 
@@ -56,7 +52,8 @@ class OfflineBannerWithLabel extends ConsumerWidget {
             : Container(
                 width: double.infinity,
                 color: AppColors.accent.withValues(alpha: 0.15),
-                padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 12),
+                padding:
+                    const EdgeInsets.symmetric(vertical: 4, horizontal: 12),
                 child: Text(
                   'common.shared.offline'.tr(),
                   style: const TextStyle(fontSize: 12, color: AppColors.text),

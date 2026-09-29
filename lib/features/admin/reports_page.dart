@@ -1,11 +1,3 @@
-// lib/features/admin/reports_page.dart
-// Route: /admin/reports (NGUOI_5_MOBILE.md, 4.9)
-//
-// Nút "Xuất PDF/Excel" dùng gói `printing` + `pdf` — cùng cách làm đã dùng
-// ở 3.6 (báo cáo nông dân, Người 4), theo đúng chỉ dẫn "như ở 3.6" trong
-// NGUOI_5_MOBILE.md. `Printing.sharePdf` tự mở share sheet của hệ điều
-// hành nên không cần thêm `share_plus` làm phương án dự phòng.
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pdf/pdf.dart';

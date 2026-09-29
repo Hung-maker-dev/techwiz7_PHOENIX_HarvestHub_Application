@@ -27,10 +27,6 @@ class ChatbotBudgetHandler {
           : 'There are currently no in-stock products available for your budget.';
     }
 
-// ----------------------------------------------------------
-// 1. HỎI SỐ LƯỢNG CỦA MỘT SẢN PHẨM
-// ----------------------------------------------------------
-
     final quantityAnswer = _answerQuantityQuestion(
       question,
       products,
@@ -41,10 +37,6 @@ class ChatbotBudgetHandler {
     if (quantityAnswer != null) {
       return quantityAnswer;
     }
-
-// ----------------------------------------------------------
-// 2. HỎI CÓ THỂ MUA NHỮNG GÌ TRONG NGÂN SÁCH
-// ----------------------------------------------------------
 
     final results = _findBestCombinations(
       products,
@@ -63,15 +55,6 @@ class ChatbotBudgetHandler {
       isVietnamese,
     );
   }
-
-// ============================================================
-// BALANCED BASKET
-//
-// Mỗi danh mục cố gắng lấy 1 món.
-// Sau đó dùng phần tiền còn lại để bổ sung món rẻ.
-//
-// Phần này dùng TOÀN BỘ products, không giới hạn 18 món.
-// ============================================================
 
   _BudgetCombination? _balancedBasket(
     List<Map<String, dynamic>> products,
@@ -107,10 +90,6 @@ class ChatbotBudgetHandler {
 // Chia ngân sách tương đối đều cho các danh mục.
     final share = budget ~/ byCategory.length;
 
-// ----------------------------------------------------------
-// 1. Mỗi danh mục lấy 1 món phù hợp.
-// ----------------------------------------------------------
-
     for (final list in byCategory.values) {
       if (picked.length >= maxBasketProducts) {
         break;
@@ -134,10 +113,6 @@ class ChatbotBudgetHandler {
         total += priceOf(fit.first);
       }
     }
-
-// ----------------------------------------------------------
-// 2. Dùng phần tiền còn lại để thêm sản phẩm rẻ.
-// ----------------------------------------------------------
 
     final rest = products
         .where(
@@ -172,10 +147,6 @@ class ChatbotBudgetHandler {
       total: total,
     );
   }
-
-// ============================================================
-// BUDGET INTENT
-// ============================================================
 
   bool _isBudgetQuestion(String question) {
     final q = _normalize(question);
@@ -228,14 +199,6 @@ class ChatbotBudgetHandler {
 
     final hasEnglish = englishPatterns.any(q.contains);
 
-// ----------------------------------------------------------
-// English quantity/budget question with product name.
-//
-// Ví dụ:
-// How much ST25 Rice can I buy with $100,000?
-// How many Organic Cherry Tomatoes can I buy with $200,000?
-// ----------------------------------------------------------
-
     final hasHowMuch = q.contains('how much');
 
     final hasHowMany = q.contains('how many');
@@ -255,10 +218,6 @@ class ChatbotBudgetHandler {
           'what',
           'gi',
         ]);
-
-// ----------------------------------------------------------
-// Money
-// ----------------------------------------------------------
 
     final hasMoney = RegExp(r'\d').hasMatch(q) &&
         (question.contains(r'$') ||
@@ -280,16 +239,10 @@ class ChatbotBudgetHandler {
     return phrases.any(text.contains);
   }
 
-// ============================================================
-// EXTRACT BUDGET
-// ============================================================
-
   int? _extractBudget(String question) {
     final q = _normalize(question);
 
-// ----------------------------------------------------------
 // Currency amount using app shorthand, e.g. $100 / 100$ or $100,000.
-// ----------------------------------------------------------
 
     final dollarMatch = RegExp(
       r'(?:\$\s*(\d[\d,]*(?:\.\d+)?)|(\d[\d,]*(?:\.\d+)?)\s*\$)',
@@ -305,13 +258,6 @@ class ChatbotBudgetHandler {
         return (amount < 1000 ? amount * 1000 : amount).round();
       }
     }
-
-// ----------------------------------------------------------
-// Ví dụ:
-// $100,000 / $100 / 100$
-// $50,500 / $50.5
-// Backward compatible: 100k, 50.5k, 100,5k
-// ----------------------------------------------------------
 
     final kMatch = RegExp(
       r'(\d+(?:[.,]\d+)?)\s*k\b',
@@ -329,16 +275,6 @@ class ChatbotBudgetHandler {
         return (number * 1000).round();
       }
     }
-
-// ----------------------------------------------------------
-// Ví dụ:
-// 100000
-// 100.000
-// 100,000
-// 100000đ
-// 100.000đ
-// 100000 VND
-// ----------------------------------------------------------
 
     final vndMatch = RegExp(
       r'(\d[\d.,]*)\s*(?:d|dong|vnd)?',
@@ -359,10 +295,6 @@ class ChatbotBudgetHandler {
 
     return null;
   }
-
-// ============================================================
-// EXTRACT AVAILABLE PRODUCTS
-// ============================================================
 
   List<Map<String, dynamic>> _extractAvailableProducts(
     Map<String, dynamic> context,
@@ -413,9 +345,7 @@ class ChatbotBudgetHandler {
     return products;
   }
 
-// ============================================================
 // QUANTITY QUESTION
-// ============================================================
 
   String? _answerQuantityQuestion(
     String question,
@@ -568,9 +498,7 @@ class ChatbotBudgetHandler {
     return buffer.toString().trim();
   }
 
-// ============================================================
 // QUANTITY INTENT
-// ============================================================
 
   bool _isQuantityQuestion(String question) {
     final q = _normalize(question);
@@ -629,18 +557,6 @@ class ChatbotBudgetHandler {
     return false;
   }
 
-// ============================================================
-// FIND MENTIONED PRODUCT
-//
-// Ưu tiên:
-// 1. Full product name
-// 2. Tất cả từ quan trọng
-// 3. Token đặc trưng
-// 4. Tên cụ thể hơn
-//
-// Hỗ trợ tiếng Việt có dấu/không dấu và English.
-// ============================================================
-
   Map<String, dynamic>? _findMentionedProduct(
     String normalizedQuestion,
     List<Map<String, dynamic>> products,
@@ -675,9 +591,7 @@ class ChatbotBudgetHandler {
 
       var score = 0;
 
-// --------------------------------------------------------
 // 1. FULL PRODUCT NAME
-// --------------------------------------------------------
 
       if (nameVi.isNotEmpty && normalizedQuestion.contains(nameVi)) {
         score = math.max(score, 1000);
@@ -695,10 +609,6 @@ class ChatbotBudgetHandler {
 
         continue;
       }
-
-// --------------------------------------------------------
-// 2. MATCH TỪ QUAN TRỌNG
-// --------------------------------------------------------
 
       final allWords = <String>{
         ...nameVi.split(' '),
@@ -736,10 +646,6 @@ class ChatbotBudgetHandler {
         score += 300;
       }
 
-// --------------------------------------------------------
-// 3. TOKEN ĐẶC TRƯNG
-// --------------------------------------------------------
-
       final questionWords = normalizedQuestion.split(' ');
 
       for (final word in words) {
@@ -747,10 +653,6 @@ class ChatbotBudgetHandler {
           score += 30;
         }
       }
-
-// --------------------------------------------------------
-// 4. ƯU TIÊN TÊN CỤ THỂ HƠN
-// --------------------------------------------------------
 
       final longestName = nameVi.length >= nameEn.length ? nameVi : nameEn;
 
@@ -763,10 +665,6 @@ class ChatbotBudgetHandler {
         );
       }
 
-// --------------------------------------------------------
-// 5. CHỌN BEST MATCH
-// --------------------------------------------------------
-
       if (score > bestScore) {
         bestScore = score;
         bestProduct = product;
@@ -776,25 +674,12 @@ class ChatbotBudgetHandler {
     return bestProduct;
   }
 
-// ============================================================
 // FIND BEST COMBINATIONS
-//
-// Đệ quy chỉ chạy trên 18 sản phẩm rẻ nhất.
-//
-// Balanced basket KHÔNG nằm trong pool này.
-// ============================================================
 
   List<_BudgetCombination> _findBestCombinations(
     List<Map<String, dynamic>> products,
     int budget,
   ) {
-// ----------------------------------------------------------
-// Chỉ lấy 18 sản phẩm rẻ nhất để tránh recursion quá lớn.
-//
-// products đã được sort theo giá tăng dần trong
-// _extractAvailableProducts().
-// ----------------------------------------------------------
-
     final pool = products.take(_maxProductsForSearch).toList();
 
     final results = <_BudgetCombination>[];
@@ -849,19 +734,11 @@ class ChatbotBudgetHandler {
       0,
     );
 
-// ----------------------------------------------------------
-// Loại duplicate.
-// ----------------------------------------------------------
-
     final unique = <String, _BudgetCombination>{};
 
     for (final result in results) {
       unique[_comboKey(result)] = result;
     }
-
-// ----------------------------------------------------------
-// Sort theo score cũ.
-// ----------------------------------------------------------
 
     final sorted = unique.values.toList()
       ..sort(
@@ -875,11 +752,6 @@ class ChatbotBudgetHandler {
           ),
         ),
       );
-
-// ----------------------------------------------------------
-// Balanced basket dùng TOÀN BỘ products.
-// Luôn đứng đầu nếu tạo được.
-// ----------------------------------------------------------
 
     final basket = _balancedBasket(
       products,
@@ -907,9 +779,7 @@ class ChatbotBudgetHandler {
     ];
   }
 
-// ============================================================
 // COMBINATION KEY
-// ============================================================
 
   String _comboKey(
     _BudgetCombination combination,
@@ -924,9 +794,7 @@ class ChatbotBudgetHandler {
     return ids.join('|');
   }
 
-// ============================================================
 // SCORE COMBINATION
-// ============================================================
 
   double _scoreCombination(
     _BudgetCombination combination,
@@ -958,9 +826,7 @@ class ChatbotBudgetHandler {
     return budgetScore + categoryBonus + countBonus;
   }
 
-// ============================================================
 // FORMAT COMBINATION RESULTS
-// ============================================================
 
   String _formatResults(
     List<_BudgetCombination> results,
@@ -980,10 +846,6 @@ class ChatbotBudgetHandler {
       for (var i = 0; i < results.length; i++) {
         final result = results[i];
 
-// ------------------------------------------------------
-// Giỏ cân đối
-// ------------------------------------------------------
-
         if (i == 0) {
           buffer.writeln(
             '🧺 Giỏ cân đối',
@@ -998,7 +860,6 @@ class ChatbotBudgetHandler {
           );
         }
 
-// Nếu là giỏ cân đối thì vẫn hiển thị tổng tiền.
         if (i == 0) {
           buffer.writeln(
             '   Tổng ${_formatMoney(result.total)}',
@@ -1051,9 +912,7 @@ class ChatbotBudgetHandler {
       for (var i = 0; i < results.length; i++) {
         final result = results[i];
 
-// ------------------------------------------------------
 // Balanced basket
-// ------------------------------------------------------
 
         if (i == 0) {
           buffer.writeln(
@@ -1116,9 +975,7 @@ class ChatbotBudgetHandler {
     return buffer.toString().trim();
   }
 
-// ============================================================
 // PRODUCT NAME
-// ============================================================
 
   String _productName(
     Map<String, dynamic> product,
@@ -1139,9 +996,7 @@ class ChatbotBudgetHandler {
     return en.isNotEmpty ? en : vi;
   }
 
-// ============================================================
 // MONEY FORMAT
-// ============================================================
 
   String _formatMoney(int value) {
     final text = value.toString();
@@ -1156,9 +1011,7 @@ class ChatbotBudgetHandler {
     return '\$$formatted';
   }
 
-// ============================================================
 // PARSE DOUBLE
-// ============================================================
 
   double? _toDouble(dynamic value) {
     if (value == null) {
@@ -1174,10 +1027,6 @@ class ChatbotBudgetHandler {
     );
   }
 
-// ============================================================
-// STRING
-// ============================================================
-
   String _stringValue(
     dynamic value,
   ) {
@@ -1188,9 +1037,7 @@ class ChatbotBudgetHandler {
     return value.toString().trim();
   }
 
-// ============================================================
 // NORMALIZE VIETNAMESE / ENGLISH
-// ============================================================
 
   String _normalize(
     String value,
@@ -1289,9 +1136,7 @@ class ChatbotBudgetHandler {
   }
 }
 
-// ============================================================
 // BUDGET COMBINATION MODEL
-// ============================================================
 
 class _BudgetCombination {
   const _BudgetCombination({

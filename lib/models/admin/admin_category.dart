@@ -1,11 +1,3 @@
-// lib/models/admin/admin_category.dart
-//
-// Khớp bảng `categories` + cột `name_en` (harvesthub_mysql_migration.sql,
-// khối 5) và cùng field-set với bảng cache SQLite `categories`
-// (harvesthub_sqlite_offline.sql) để không lệch khi Người 2 map dữ liệu
-// đồng bộ xuống Shop. Dùng cho GET/POST/PATCH/DELETE /api/admin/categories
-// và PATCH /api/admin/categories/reorder (4.5).
-
 class AdminCategory {
   final String id;
   final String name;

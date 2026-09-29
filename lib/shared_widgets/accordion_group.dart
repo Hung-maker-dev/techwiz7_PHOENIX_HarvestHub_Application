@@ -9,10 +9,6 @@ class AccordionItemData {
   final String body;
 }
 
-/// Nhóm accordion tuỳ biến (không dùng ExpansionPanelList mặc định của
-/// Flutter để kiểm soát style/animation nhất quán với token app_motion).
-/// Đặt ở shared_widgets vì FAQ (1.6) và các màn hình khác (vd. chi tiết sản
-/// phẩm) đều có thể cần accordion.
 class AccordionGroup extends StatelessWidget {
   const AccordionGroup({super.key, required this.items});
   final List<AccordionItemData> items;
@@ -57,14 +53,16 @@ class _AccordionItemState extends State<_AccordionItem> {
                   Expanded(
                     child: Text(
                       widget.data.title,
-                      style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 14),
+                      style: const TextStyle(
+                          fontWeight: FontWeight.w600, fontSize: 14),
                     ),
                   ),
                   AnimatedRotation(
                     turns: _expanded ? 0.5 : 0,
                     duration: AppDurations.micro,
                     curve: AppCurves.easeOut,
-                    child: const Icon(Icons.keyboard_arrow_down, color: AppColors.textSecondary),
+                    child: const Icon(Icons.keyboard_arrow_down,
+                        color: AppColors.textSecondary),
                   ),
                 ],
               ),
@@ -85,7 +83,10 @@ class _AccordionItemState extends State<_AccordionItem> {
                       alignment: Alignment.centerLeft,
                       child: Text(
                         widget.data.body,
-                        style: const TextStyle(color: AppColors.textSecondary, fontSize: 13, height: 1.5),
+                        style: const TextStyle(
+                            color: AppColors.textSecondary,
+                            fontSize: 13,
+                            height: 1.5),
                       ),
                     ),
                   )

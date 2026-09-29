@@ -3,8 +3,6 @@ import '../core/theme/app_colors.dart';
 import '../core/theme/app_motion.dart';
 import '../core/theme/app_theme.dart';
 
-/// Thẻ dùng chung: viền 1px `border`, bo `radiusCard`, không đổ bóng mặc định.
-/// [interactive] = true thêm hiệu ứng viền màu primary khi nhấn-giữ.
 class AppCard extends StatefulWidget {
   const AppCard({
     super.key,
@@ -28,7 +26,8 @@ class _AppCardState extends State<AppCard> {
 
   @override
   Widget build(BuildContext context) {
-    final borderColor = widget.interactive && _pressed ? AppColors.primary : AppColors.border;
+    final borderColor =
+        widget.interactive && _pressed ? AppColors.primary : AppColors.border;
 
     final card = AnimatedContainer(
       duration: AppDurations.micro,

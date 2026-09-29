@@ -9,9 +9,6 @@ import '../../shared_widgets/app_text_area.dart';
 import '../../shared_widgets/app_text_field.dart';
 import '../../shared_widgets/app_toast.dart';
 
-/// 1.5 Liên hệ — route `/contact`.
-/// Sau khi gửi thành công: Toast.success() + reset form tại chỗ,
-/// KHÔNG điều hướng khỏi màn hình.
 class ContactPage extends ConsumerStatefulWidget {
   const ContactPage({super.key});
 
@@ -65,7 +62,8 @@ class _ContactPageState extends ConsumerState<ContactPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              AppTextField(label: 'common.contact.name'.tr(), controller: _name),
+              AppTextField(
+                  label: 'common.contact.name'.tr(), controller: _name),
               const SizedBox(height: AppSpace.space2),
               AppTextField(
                 label: 'common.contact.email'.tr(),
@@ -73,7 +71,8 @@ class _ContactPageState extends ConsumerState<ContactPage> {
                 keyboardType: TextInputType.emailAddress,
               ),
               const SizedBox(height: AppSpace.space2),
-              AppTextArea(label: 'common.contact.message'.tr(), controller: _message),
+              AppTextArea(
+                  label: 'common.contact.message'.tr(), controller: _message),
               const SizedBox(height: AppSpace.space3),
               AppButton(
                 label: 'common.contact.submit'.tr(),

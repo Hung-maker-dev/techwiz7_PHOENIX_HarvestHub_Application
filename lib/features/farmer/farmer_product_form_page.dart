@@ -9,13 +9,6 @@ import '../../data/api/farmer_products_api.dart';
 import '../../models/product.dart';
 import '../../providers/farmer_products_provider.dart';
 
-/// Form thêm/sửa sản phẩm — route `/farmer/products/new` (thêm) và
-/// `/farmer/products/:id/edit` (sửa, [productId] khác null).
-/// Trả về `true` qua `Navigator.pop` khi lưu thành công để FarmerHomePage
-/// biết cần refetch danh sách.
-///
-/// "Hết hàng" KHÔNG phải lựa chọn farmer tự chọn — nó tự động khi stock = 0
-/// (xem ProductStatus). Ở đây farmer chỉ chỉnh Đang bán/Đã ẩn (is_active).
 class FarmerProductFormPage extends ConsumerStatefulWidget {
   final String? productId;
 

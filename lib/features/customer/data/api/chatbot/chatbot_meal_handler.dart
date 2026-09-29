@@ -46,10 +46,6 @@ class ChatbotMealHandler {
     );
   }
 
-  // ============================================================
-  // NHẬN DIỆN CÂU HỎI VỀ MÓN ĂN
-  // ============================================================
-
   bool _isMealQuestion(String question) {
     final text = _normalize(question);
 
@@ -198,10 +194,6 @@ class ChatbotMealHandler {
         (hasVietnameseCookingWord || hasEnglishCookingWord);
   }
 
-  // ============================================================
-  // LẤY SẢN PHẨM
-  // ============================================================
-
   List<Map<String, dynamic>> _getAvailableProducts(
     Map<String, dynamic> context,
   ) {
@@ -243,10 +235,6 @@ class ChatbotMealHandler {
 
     return matches;
   }
-
-  // ============================================================
-  // TẠO CÂU TRẢ LỜI TỪ DỮ LIỆU
-  // ============================================================
 
   String _buildAnswer({
     required List<Map<String, dynamic>> products,
@@ -354,10 +342,6 @@ class ChatbotMealHandler {
         return null;
     }
   }
-
-  // ============================================================
-  // HELPERS
-  // ============================================================
 
   List<Map<String, dynamic>> _findByCategories(
     List<Map<String, dynamic>> products,

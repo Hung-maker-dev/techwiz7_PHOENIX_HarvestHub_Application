@@ -33,9 +33,7 @@ class ChatbotProductHandler {
     final q = _normalize(question);
     final isVietnamese = useVietnamese ?? _isVietnamese(question);
 
-// ============================================================
 // 1. OUT OF STOCK LIST
-// ============================================================
 
     if (_isOutOfStockListQuestion(q)) {
       final outOfStockProducts = products.where(_isOutOfStockProduct).toList();
@@ -52,9 +50,7 @@ class ChatbotProductHandler {
       );
     }
 
-// ============================================================
 // 2. IN STOCK LIST
-// ============================================================
 
     if (_isInStockListQuestion(q)) {
       final inStockProducts = products.where(_isAvailableProduct).toList();
@@ -71,9 +67,7 @@ class ChatbotProductHandler {
       );
     }
 
-// ============================================================
 // 3. GENERAL STOCK INFORMATION
-// ============================================================
 
     if (_isGeneralStockQuestion(q)) {
       final activeProducts = products.where(_isActiveProduct).toList();
@@ -90,9 +84,7 @@ class ChatbotProductHandler {
       );
     }
 
-// ============================================================
 // 4. CATEGORY LIST
-// ============================================================
 
     if (_isCategoryListQuestion(q)) {
       if (categories.isEmpty) {
@@ -124,9 +116,7 @@ class ChatbotProductHandler {
           '${names.map((name) => '• $name').join('\n')}';
     }
 
-// ============================================================
 // 5. GENERAL PRODUCT LIST
-// ============================================================
 
     if (_isAllProductsQuestion(q)) {
       final activeProducts = products.where(_isActiveProduct).toList();
@@ -137,9 +127,7 @@ class ChatbotProductHandler {
       );
     }
 
-// ============================================================
 // 6. SPECIFIC PRODUCT
-// ============================================================
 
     final matchedProducts = findProducts(
       question,
@@ -201,9 +189,7 @@ class ChatbotProductHandler {
       );
     }
 
-// ============================================================
 // 7. CATEGORY-SPECIFIC PRODUCTS
-// ============================================================
 
     final categoryProducts = findProductsByCategoryQuestion(
       question,
@@ -222,9 +208,7 @@ class ChatbotProductHandler {
     return null;
   }
 
-// ============================================================
 // PRODUCT SEARCH
-// ============================================================
 
   List<Map<String, dynamic>> findProducts(
     String question,
@@ -451,9 +435,7 @@ class ChatbotProductHandler {
     return false;
   }
 
-// ============================================================
 // CATEGORY SEARCH
-// ============================================================
 
   List<Map<String, dynamic>> findProductsByCategoryQuestion(
     String question,
@@ -1645,9 +1627,7 @@ class ChatbotProductHandler {
     );
   }
 
-// ============================================================
 // PRODUCT STATE
-// ============================================================
 
   bool _isActiveProduct(
     Map<String, dynamic> product,
@@ -1688,9 +1668,7 @@ class ChatbotProductHandler {
     return stock != null && stock <= 0;
   }
 
-// ============================================================
 // LANGUAGE
-// ============================================================
 
   bool _isVietnamese(
     String text,
@@ -1760,9 +1738,7 @@ class ChatbotProductHandler {
     );
   }
 
-// ============================================================
 // CONTEXT
-// ============================================================
 
   List<Map<String, dynamic>> _products(
     Map<String, dynamic> context,
@@ -1798,9 +1774,7 @@ class ChatbotProductHandler {
         .toList();
   }
 
-// ============================================================
 // VALUES
-// ============================================================
 
   String _stringValue(
     dynamic value,
@@ -1835,9 +1809,7 @@ class ChatbotProductHandler {
     return value.toString();
   }
 
-// ============================================================
 // NORMALIZATION
-// ============================================================
 
   String _normalize(
     String text,
@@ -1947,9 +1919,7 @@ class ChatbotProductHandler {
   }
 }
 
-// ============================================================
 // PRODUCT MATCH MODEL
-// ============================================================
 
 class _ProductMatch {
   const _ProductMatch({

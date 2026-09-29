@@ -1,18 +1,3 @@
-// lib/features/admin/admin_shell.dart
-//
-// Tương đương `AdminLayout.jsx` bản web (PROJECT_STRUCTURE.md). Tự dựng
-// riêng (không tái dùng `farmer_shell.dart` của Người 4) như đã nêu ở đầu
-// NGUOI_5_MOBILE.md, chỉ dùng chung widget "nguyên liệu" từ shared_widgets/.
-//
-// Quyết định (NGUOI_5_MOBILE.md, mục A): 10 mục menu quá nhiều cho
-// BottomNavigationBar → dùng Drawer (mở qua icon hamburger trên AppBar),
-// danh sách dọc, mục đang chọn có thanh dọc trượt theo (pattern #9).
-//
-// Route guard: chặn nếu users.role != 'admin' — thực hiện ở go_router
-// redirect khi đăng ký route '/admin/**' (app_router.dart, thuộc Người 1),
-// widget này chỉ có một lớp phòng vệ bổ sung phía UI (_AdminGuard) để tránh
-// render nhầm nội dung admin nếu widget bị mount trực tiếp ngoài router.
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';

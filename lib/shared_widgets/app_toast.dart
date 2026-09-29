@@ -1,9 +1,5 @@
 import 'toast_queue.dart';
 
-/// API công khai — gọi được từ bất kỳ đâu (provider, repository, widget)
-/// miễn `ToastOverlay` đã được mount ở gốc cây widget trong app.dart.
-///
-/// Ví dụ: `Toast.success('Đã lưu thành công')`.
 class Toast {
   Toast._();
 

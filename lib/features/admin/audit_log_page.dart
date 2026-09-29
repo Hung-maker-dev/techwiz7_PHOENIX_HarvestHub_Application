@@ -1,6 +1,3 @@
-// lib/features/admin/audit_log_page.dart
-// Route: /admin/audit-log (NGUOI_5_MOBILE.md, 4.10)
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -39,8 +36,6 @@ class AdminAuditLogPage extends ConsumerWidget {
             child: Text(adminText(context, 'Không tải được nhật ký — thử lại')),
           ),
         ),
-        // 4.10: "chỉ đọc, không hành động nào trên danh sách này" — không
-        // có nút thao tác, không pull-to-refresh viết dữ liệu, chỉ hiển thị.
         data: (entries) => AuditLogList(entries: entries),
       ),
     );

@@ -123,15 +123,6 @@ class AuthRepository {
     await _googleSignIn.signOut();
   }
 
-  /// Lấy role THẬT của user hiện tại từ backend — nguồn duy nhất được tin
-  /// cậy để xác định quyền hạn trong toàn app.
-  ///
-  /// Trả về `null` nếu chưa đăng nhập hoặc chưa có MySQL profile. Nơi gọi
-  /// (userRoleProvider) sẽ luôn fallback về 'customer' khi nhận `null` —
-  /// KHÔNG BAO GIỜ được suy đoán hay mặc định một role có quyền cao hơn.
-  ///
-  /// Endpoint GET /api/auth/me trả về hồ sơ MySQL của Firebase UID hiện tại.
-  /// Null means the account is authenticated but has not completed setup.
   Future<String?> fetchCurrentRole() async {
     if (currentUser == null) {
       return null;

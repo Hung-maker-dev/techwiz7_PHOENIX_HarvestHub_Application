@@ -1,7 +1,3 @@
-// lib/features/admin/widgets/audit_log_list.dart
-//
-// 4.10: "AuditLogList (chỉ đọc, không hành động nào trên danh sách này)".
-
 import 'package:flutter/material.dart';
 
 import '../../../models/admin/audit_log_entry.dart';

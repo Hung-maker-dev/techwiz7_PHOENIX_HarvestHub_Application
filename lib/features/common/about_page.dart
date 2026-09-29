@@ -4,8 +4,6 @@ import 'package:flutter/material.dart';
 import '../../core/theme/app_colors.dart';
 import '../../core/theme/app_theme.dart';
 
-/// 1.4 Giới thiệu — route `/about`. Nội dung tĩnh, không API,
-/// không animation đặc biệt.
 class AboutPage extends StatelessWidget {
   const AboutPage({super.key});
 
@@ -18,7 +16,8 @@ class AboutPage extends StatelessWidget {
           padding: const EdgeInsets.all(AppSpace.space3),
           child: Text(
             'common.about.body'.tr(),
-            style: const TextStyle(fontSize: 15, height: 1.6, color: AppColors.text),
+            style: const TextStyle(
+                fontSize: 15, height: 1.6, color: AppColors.text),
           ),
         ),
       ),

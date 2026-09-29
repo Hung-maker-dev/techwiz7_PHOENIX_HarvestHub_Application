@@ -1,10 +1,3 @@
-// lib/models/admin/dashboard_summary.dart
-//
-// Khớp response của GET /api/reports/system/summary (NGUOI_5_MOBILE.md, 4.1).
-// Model viết tay (không dùng freezed/json_serializable) để tránh phụ thuộc
-// build_runner khi ghép nhánh — nếu cả nhóm đã thống nhất dùng freezed cho
-// models/ chung, đổi file này sang cùng convention rồi xoá fromJson tay.
-
 class MarketRevenue {
   final String marketId;
   final String marketName;
@@ -98,19 +91,22 @@ class DashboardSummary {
     required this.pendingActions,
   });
 
-  factory DashboardSummary.fromJson(Map<String, dynamic> json) => DashboardSummary(
+  factory DashboardSummary.fromJson(Map<String, dynamic> json) =>
+      DashboardSummary(
         totalOrders: (json['totalOrders'] ?? json['total_orders'] ?? 0) as int,
         totalRevenue: (json['totalRevenue'] as num?)?.toDouble() ??
             (json['total_revenue'] as num?)?.toDouble() ??
             0,
-        revenueByMarket:
-            ((json['revenueByMarket'] ?? json['revenue_by_market'] ?? []) as List)
-                .map((e) => MarketRevenue.fromJson(e as Map<String, dynamic>))
-                .toList(),
-        mostActiveFarmers:
-            ((json['mostActiveFarmers'] ?? json['most_active_farmers'] ?? []) as List)
-                .map((e) => ActiveFarmerSummary.fromJson(e as Map<String, dynamic>))
-                .toList(),
+        revenueByMarket: ((json['revenueByMarket'] ??
+                json['revenue_by_market'] ??
+                []) as List)
+            .map((e) => MarketRevenue.fromJson(e as Map<String, dynamic>))
+            .toList(),
+        mostActiveFarmers: ((json['mostActiveFarmers'] ??
+                json['most_active_farmers'] ??
+                []) as List)
+            .map((e) => ActiveFarmerSummary.fromJson(e as Map<String, dynamic>))
+            .toList(),
         pendingActions:
             ((json['pendingActions'] ?? json['pending_actions'] ?? []) as List)
                 .map((e) => PendingAction.fromJson(e as Map<String, dynamic>))

@@ -7,9 +7,6 @@ import 'app_bottom_sheet.dart';
 import 'language_switcher.dart';
 import 'theme_toggle.dart';
 
-/// Thay thế `Footer.jsx` của bản web — mobile không có khái niệm footer.
-/// Mở bằng AppBottomSheet.show ở luồng khách hàng khi không cần hiện đầy đủ
-/// các link phụ trên mọi màn hình.
 class BottomNavMoreSheet extends StatelessWidget {
   const BottomNavMoreSheet({super.key});
 
@@ -59,7 +56,8 @@ class BottomNavMoreSheet extends StatelessWidget {
         ),
         ListTile(
           contentPadding: EdgeInsets.zero,
-          leading: const Icon(Icons.brightness_6_outlined, color: AppColors.textSecondary),
+          leading: const Icon(Icons.brightness_6_outlined,
+              color: AppColors.textSecondary),
           title: Text('common.moreSheet.theme'.tr()),
           trailing: const ThemeToggle(),
         ),
@@ -69,7 +67,8 @@ class BottomNavMoreSheet extends StatelessWidget {
 }
 
 class _MoreTile extends StatelessWidget {
-  const _MoreTile({required this.icon, required this.label, required this.onTap});
+  const _MoreTile(
+      {required this.icon, required this.label, required this.onTap});
   final IconData icon;
   final String label;
   final VoidCallback onTap;

@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-/// Token màu dùng chung toàn app — mọi widget PHẢI dùng các const này,
-/// không hard-code Color(...) rải rác trong feature code.
 class AppColors {
   AppColors._();
 
@@ -15,7 +13,8 @@ class AppColors {
 
   // Thương hiệu
   static const primary = Color(0xFF2F7D4F);
-  static const primaryHover = Color(0xFF255F3D); // dùng cho pressed, không có hover thật trên mobile
+  static const primaryHover =
+      Color(0xFF255F3D); // dùng cho pressed, không có hover thật trên mobile
 
   // Trạng thái
   static const accent = Color(0xFFE7A33E);

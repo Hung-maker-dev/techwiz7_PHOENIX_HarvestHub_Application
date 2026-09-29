@@ -1,8 +1,3 @@
-// lib/features/admin/widgets/category_form_sheet.dart
-//
-// 4.5: `CategoryFormSheet` dùng chung cho tạo mới và sửa (truyền [existing]
-// khi sửa). Bottom sheet theo pattern #3.
-
 import 'package:flutter/material.dart';
 
 import '../../../models/admin/admin_category.dart';

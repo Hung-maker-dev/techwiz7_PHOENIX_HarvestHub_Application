@@ -1,6 +1,4 @@
 // lib/features/admin/orders_page.dart
-// Route: /admin/orders (NGUOI_5_MOBILE.md, 4.7 — chỉ xem, farmer mới được
-// đổi trạng thái đơn).
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';

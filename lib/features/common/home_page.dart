@@ -29,9 +29,6 @@ class HomePage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final user = FirebaseAuth.instance.currentUser;
 
-    // QUAN TRỌNG: role KHÔNG còn được truyền qua constructor / URL nữa.
-    // HomePage tự đọc role thật từ backend qua userRoleProvider — client
-    // không còn cách nào tự khai mình là 'admin' được nữa.
     final roleAsync = ref.watch(userRoleProvider);
 
     return Scaffold(

@@ -1,10 +1,3 @@
-// lib/models/admin/admin_market.dart
-//
-// Khớp bảng `farmers_market` + name_en (harvesthub_mysql_migration.sql,
-// khối 5), cùng field-set với cache SQLite `farmers_market`
-// (harvesthub_sqlite_offline.sql). Dùng cho GET/POST/PATCH/DELETE
-// /api/admin/markets (4.6).
-
 class AdminMarket {
   final String id;
   final String name;

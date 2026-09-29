@@ -1,21 +1,3 @@
-// lib/features/admin/admin_routes.dart
-//
-// Danh sách GoRoute cho toàn bộ module admin — Người 1 ghép mảng này vào
-// `core/router/app_router.dart` (routes: [...homeRoutes, ...customerRoutes,
-// ...farmerRoutes, ...adminRoutes, ...]).
-//
-// Mỗi trang admin tự dựng `AdminShell` bên trong nó (xem admin_shell.dart)
-// thay vì dùng `StatefulShellRoute` của go_router, vì Drawer không cần giữ
-// state điều hướng song song nhiều tab như BottomNavigationBar của
-// farmer_shell — mỗi lần chuyển mục trong Drawer là một `context.go()`
-// độc lập, đơn giản hơn khi ghép nhánh.
-//
-// Route guard (chặn users.role != 'admin') nên đặt ở `redirect:` cấp
-// ShellRoute/route cha trong app_router.dart (Người 1), dùng chung cơ chế
-// đọc `authProvider` cho cả 3 role — `_AdminGuardDenied` trong
-// admin_shell.dart chỉ là lớp phòng vệ UI bổ sung, KHÔNG thay thế redirect
-// ở router.
-
 import 'package:go_router/go_router.dart';
 
 import '../../models/admin/admin_contact_message.dart';

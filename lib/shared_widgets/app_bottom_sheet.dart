@@ -2,9 +2,6 @@ import 'package:flutter/material.dart';
 import '../core/theme/app_colors.dart';
 import '../core/theme/app_theme.dart';
 
-/// Mọi "modal/drawer" chi tiết trên mobile quy về bottom sheet — quyết định
-/// bỏ khái niệm "drawer từ phải" của bản web vì màn hình điện thoại hẹp.
-/// [isScrollControlled] nên bật khi nội dung là form dài.
 class AppBottomSheet {
   AppBottomSheet._();
 
@@ -19,7 +16,8 @@ class AppBottomSheet {
       isScrollControlled: isScrollControlled,
       backgroundColor: AppColors.surface,
       shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(AppRadius.card)),
+        borderRadius:
+            BorderRadius.vertical(top: Radius.circular(AppRadius.card)),
       ),
       builder: (context) => Padding(
         padding: EdgeInsets.only(
@@ -44,7 +42,9 @@ class AppBottomSheet {
               ),
             ),
             if (title != null) ...[
-              Text(title, style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w700)),
+              Text(title,
+                  style: const TextStyle(
+                      fontSize: 18, fontWeight: FontWeight.w700)),
               const SizedBox(height: AppSpace.space2),
             ],
             Flexible(child: child),

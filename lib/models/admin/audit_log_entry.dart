@@ -1,11 +1,3 @@
-// lib/models/admin/audit_log_entry.dart
-//
-// Khớp bảng `audit_logs`, actor_id cho phép NULL từ
-// harvesthub_mysql_migration.sql khối 6 (hành động hệ thống tự động: cron
-// cảnh báo tồn kho thấp, job báo có hàng lại...). Khi actorId == null, UI
-// hiển thị "Hệ thống" thay vì tên người dùng — xử lý ở `actorDisplayName`.
-// Dùng cho GET /api/admin/audit-log?actor=&from=&to= (4.10, chỉ đọc).
-
 class AuditLogEntry {
   final String id;
   final String? actorId;
@@ -39,7 +31,7 @@ class AuditLogEntry {
         entityType: (json['entityType'] ?? json['entity_type'] ?? '') as String,
         entityId: (json['entityId'] ?? json['entity_id'] ?? '').toString(),
         details: json['details'] as String?,
-        createdAt: DateTime.parse(
-            (json['createdAt'] ?? json['created_at']) as String),
+        createdAt:
+            DateTime.parse((json['createdAt'] ?? json['created_at']) as String),
       );
 }

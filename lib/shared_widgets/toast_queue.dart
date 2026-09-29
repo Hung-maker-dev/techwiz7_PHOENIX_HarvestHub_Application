@@ -12,11 +12,9 @@ class _ToastItem {
   final ToastType type;
 }
 
-/// Global key gắn ở app.dart để `app_toast.dart` gọi vào overlay này
-/// mà không cần BuildContext của widget hiện tại.
-final GlobalKey<ToastOverlayState> toastOverlayKey = GlobalKey<ToastOverlayState>();
+final GlobalKey<ToastOverlayState> toastOverlayKey =
+    GlobalKey<ToastOverlayState>();
 
-/// Mount MỘT LẦN ở gốc cây widget (app.dart), không lặp lại ở từng màn hình.
 class ToastOverlay extends StatefulWidget {
   const ToastOverlay({super.key, required this.child});
   final Widget child;
@@ -81,9 +79,11 @@ class _ToastCard extends StatefulWidget {
   State<_ToastCard> createState() => _ToastCardState();
 }
 
-class _ToastCardState extends State<_ToastCard> with SingleTickerProviderStateMixin {
+class _ToastCardState extends State<_ToastCard>
+    with SingleTickerProviderStateMixin {
   late final AnimationController _entrance =
-      AnimationController(vsync: this, duration: AppDurations.toastTransition)..forward();
+      AnimationController(vsync: this, duration: AppDurations.toastTransition)
+        ..forward();
 
   @override
   void dispose() {
@@ -96,7 +96,8 @@ class _ToastCardState extends State<_ToastCard> with SingleTickerProviderStateMi
     final isError = widget.item.type == ToastType.error;
     return SlideTransition(
       position: Tween<Offset>(begin: const Offset(0, -0.3), end: Offset.zero)
-          .animate(CurvedAnimation(parent: _entrance, curve: AppCurves.easeOut)),
+          .animate(
+              CurvedAnimation(parent: _entrance, curve: AppCurves.easeOut)),
       child: FadeTransition(
         opacity: _entrance,
         child: Material(
@@ -106,7 +107,9 @@ class _ToastCardState extends State<_ToastCard> with SingleTickerProviderStateMi
               color: AppColors.surface,
               borderRadius: BorderRadius.circular(AppRadius.control),
               border: Border.all(color: AppColors.border),
-              boxShadow: const [BoxShadow(color: Color(0x1A000000), blurRadius: 8)],
+              boxShadow: const [
+                BoxShadow(color: Color(0x1A000000), blurRadius: 8)
+              ],
             ),
             padding: const EdgeInsets.all(AppSpace.space2),
             child: Column(
@@ -116,13 +119,16 @@ class _ToastCardState extends State<_ToastCard> with SingleTickerProviderStateMi
                 Row(
                   children: [
                     Icon(
-                      isError ? Icons.error_outline : Icons.check_circle_outline,
+                      isError
+                          ? Icons.error_outline
+                          : Icons.check_circle_outline,
                       color: isError ? AppColors.danger : AppColors.success,
                       size: 20,
                     ),
                     const SizedBox(width: AppSpace.space1),
                     Expanded(
-                      child: Text(widget.item.message, style: const TextStyle(fontSize: 14)),
+                      child: Text(widget.item.message,
+                          style: const TextStyle(fontSize: 14)),
                     ),
                   ],
                 ),
@@ -145,7 +151,8 @@ class _ProgressBar extends StatefulWidget {
   State<_ProgressBar> createState() => _ProgressBarState();
 }
 
-class _ProgressBarState extends State<_ProgressBar> with SingleTickerProviderStateMixin {
+class _ProgressBarState extends State<_ProgressBar>
+    with SingleTickerProviderStateMixin {
   late final AnimationController _controller = AnimationController(
     vsync: this,
     duration: AppDurations.toastVisible,

@@ -1,8 +1,4 @@
 class ChatbotMarketHandler {
-  // ============================================================
-  // PUBLIC API
-  // ============================================================
-
   String? answer(
     String question,
     Map<String, dynamic> context, {
@@ -23,30 +19,14 @@ class ChatbotMarketHandler {
       return null;
     }
 
-    // ============================================================
-    // 1. KIỂM TRA CÂU HỎI MARKET
-    // ============================================================
-
     if (!_isMarketQuestion(normalizedQuestion)) {
       return null;
     }
-
-    // ============================================================
-    // 2. TÌM MARKET CỤ THỂ
-    // ============================================================
 
     final matchedMarkets = _findMatchingMarkets(
       normalizedQuestion,
       markets,
     );
-
-    // ============================================================
-    // 3. MARKET THÔNG QUA FARMER
-    //
-    // Ví dụ:
-    // - Where is Minh Phat Farm?
-    // - Trang trại Minh Phát ở chợ nào?
-    // ============================================================
 
     if (_isFarmerMarketQuestion(normalizedQuestion)) {
       final farmerMarkets = _findMarketsByFarmer(
@@ -69,15 +49,6 @@ class ChatbotMarketHandler {
           : 'I could not find the market for this farmer.';
     }
 
-    // ============================================================
-    // 4. MARKET THÔNG QUA PRODUCT
-    //
-    // Ví dụ:
-    // - Where can I find Gạo ST25?
-    // - Gạo ST25 bán ở đâu?
-    // - Which market sells King Banana?
-    // ============================================================
-
     if (_isProductMarketQuestion(normalizedQuestion)) {
       final productMarkets = _findMarketsByProduct(
         normalizedQuestion,
@@ -99,14 +70,6 @@ class ChatbotMarketHandler {
           : 'I could not find a market selling that product.';
     }
 
-    // ============================================================
-    // 5. CÂU HỎI VỀ FARMER TRONG MARKET
-    //
-    // Ví dụ:
-    // - Which farmers are at Thu Duc Market?
-    // - Chợ Thủ Đức có những nông dân nào?
-    // ============================================================
-
     if (_isMarketFarmerQuestion(normalizedQuestion)) {
       if (matchedMarkets.isNotEmpty) {
         return _formatMarketFarmers(
@@ -120,14 +83,6 @@ class ChatbotMarketHandler {
           ? 'Tôi không tìm thấy chợ này trong dữ liệu hiện tại.'
           : 'I could not find that market in the current data.';
     }
-
-    // ============================================================
-    // 6. CÂU HỎI VỀ PRODUCT TRONG MARKET
-    //
-    // Ví dụ:
-    // - What products are sold at Thu Duc Market?
-    // - Chợ Thủ Đức bán những sản phẩm gì?
-    // ============================================================
 
     if (_isMarketProductQuestion(normalizedQuestion)) {
       if (matchedMarkets.isNotEmpty) {
@@ -143,15 +98,6 @@ class ChatbotMarketHandler {
           : 'I could not find that market in the current data.';
     }
 
-    // ============================================================
-    // 7. CÂU HỎI ĐỊA CHỈ MARKET
-    //
-    // Ví dụ:
-    // - Chợ Thủ Đức ở đâu?
-    // - Where is Thu Duc Market?
-    // - What is the address of Thu Duc Market?
-    // ============================================================
-
     if (_isMarketAddressQuestion(normalizedQuestion)) {
       if (matchedMarkets.isNotEmpty) {
         return _formatMarketAddress(
@@ -164,15 +110,6 @@ class ChatbotMarketHandler {
           ? 'Tôi không tìm thấy chợ này trong dữ liệu hiện tại.'
           : 'I could not find that market in the current data.';
     }
-
-    // ============================================================
-    // 8. CÂU HỎI GIỜ MỞ CỬA MARKET
-    //
-    // Ví dụ:
-    // - Chợ Thủ Đức mở cửa lúc mấy giờ?
-    // - What time does Thu Duc Market open?
-    // - What are the opening hours of Thu Duc Market?
-    // ============================================================
 
     if (_isMarketOpeningHoursQuestion(normalizedQuestion)) {
       if (matchedMarkets.isNotEmpty) {
@@ -187,10 +124,6 @@ class ChatbotMarketHandler {
           : 'I could not find that market in the current data.';
     }
 
-    // ============================================================
-    // 9. MATCH MARKET CỤ THỂ
-    // ============================================================
-
     if (matchedMarkets.isNotEmpty) {
       return _formatMarkets(
         matchedMarkets,
@@ -199,15 +132,6 @@ class ChatbotMarketHandler {
         isVietnamese: isVietnamese,
       );
     }
-
-    // ============================================================
-    // 10. DANH SÁCH MARKET
-    //
-    // Ví dụ:
-    // - What markets are available?
-    // - Which markets do you have?
-    // - Có những chợ nào?
-    // ============================================================
 
     if (_isGenericMarketQuestion(normalizedQuestion)) {
       return _formatMarkets(
@@ -218,18 +142,10 @@ class ChatbotMarketHandler {
       );
     }
 
-    // ============================================================
-    // 11. MARKET QUESTION NHƯNG KHÔNG MATCH ĐƯỢC
-    // ============================================================
-
     return isVietnamese
         ? 'Tôi không tìm thấy chợ phù hợp trong dữ liệu HarvestHub hiện tại.'
         : 'I could not find a matching market in the current HarvestHub data.';
   }
-
-  // ============================================================
-  // MARKET QUESTION DETECTION
-  // ============================================================
 
   bool _isMarketQuestion(String question) {
     if (_containsAny(question, [
@@ -309,10 +225,6 @@ class ChatbotMarketHandler {
         (timeScore >= 1 && marketScore >= 1);
   }
 
-  // ============================================================
-  // GENERIC MARKET QUESTION
-  // ============================================================
-
   bool _isGenericMarketQuestion(String question) {
     if (_containsAny(question, [
       // English
@@ -372,10 +284,6 @@ class ChatbotMarketHandler {
     return marketScore >= 1 && listScore >= 1;
   }
 
-  // ============================================================
-  // MARKET ADDRESS QUESTION
-  // ============================================================
-
   bool _isMarketAddressQuestion(String question) {
     if (_containsAny(question, [
       // English
@@ -430,10 +338,6 @@ class ChatbotMarketHandler {
 
     return marketScore >= 1 && locationScore >= 1;
   }
-
-  // ============================================================
-  // MARKET OPENING HOURS QUESTION
-  // ============================================================
 
   bool _isMarketOpeningHoursQuestion(String question) {
     if (_containsAny(question, [
@@ -496,9 +400,7 @@ class ChatbotMarketHandler {
     return marketScore >= 1 && timeScore >= 1;
   }
 
-  // ============================================================
   // FARMER -> MARKET QUESTION
-  // ============================================================
 
   bool _isFarmerMarketQuestion(String question) {
     if (_containsAny(question, [
@@ -560,10 +462,7 @@ class ChatbotMarketHandler {
 
     return farmerScore >= 1 && locationScore >= 2;
   }
-
-  // ============================================================
   // PRODUCT -> MARKET QUESTION
-  // ============================================================
 
   bool _isProductMarketQuestion(String question) {
     if (_containsAny(question, [
@@ -614,9 +513,7 @@ class ChatbotMarketHandler {
     return productScore >= 1 && locationScore >= 2;
   }
 
-  // ============================================================
   // MARKET -> FARMER QUESTION
-  // ============================================================
 
   bool _isMarketFarmerQuestion(String question) {
     if (_containsAny(question, [
@@ -669,9 +566,7 @@ class ChatbotMarketHandler {
     return farmerScore >= 1 && locationScore >= 1;
   }
 
-  // ============================================================
   // MARKET -> PRODUCT QUESTION
-  // ============================================================
 
   bool _isMarketProductQuestion(String question) {
     if (_containsAny(question, [
@@ -731,9 +626,7 @@ class ChatbotMarketHandler {
     return productScore >= 1 && marketScore >= 1 && listScore >= 1;
   }
 
-  // ============================================================
   // FIND MARKET
-  // ============================================================
 
   List<Map<String, dynamic>> _findMatchingMarkets(
     String question,
@@ -773,10 +666,6 @@ class ChatbotMarketHandler {
 
     return matches.take(5).map((item) => item.market).toList();
   }
-
-  // ============================================================
-  // MARKET MATCH SCORE
-  // ============================================================
 
   int _marketMatchScore(
     String question,
@@ -857,14 +746,6 @@ class ChatbotMarketHandler {
     return bestScore;
   }
 
-  // ============================================================
-  // FIND MARKET BY FARMER
-  //
-  // farmers[].market_id
-  //        ↓
-  // markets[].id
-  // ============================================================
-
   List<Map<String, dynamic>> _findMarketsByFarmer(
     String question,
     List<Map<String, dynamic>> farmers,
@@ -932,14 +813,6 @@ class ChatbotMarketHandler {
     }).toList();
   }
 
-  // ============================================================
-  // FIND MARKET BY PRODUCT
-  //
-  // products[].market_id
-  //        ↓
-  // markets[].id
-  // ============================================================
-
   List<Map<String, dynamic>> _findMarketsByProduct(
     String question,
     List<Map<String, dynamic>> products,
@@ -1006,10 +879,6 @@ class ChatbotMarketHandler {
       return marketIds.contains(id) && _isActiveMarket(market);
     }).toList();
   }
-
-  // ============================================================
-  // FORMAT MARKETS
-  // ============================================================
 
   String _formatMarkets(
     List<Map<String, dynamic>> markets,
@@ -1116,10 +985,6 @@ class ChatbotMarketHandler {
     return '$title\n${lines.join('\n')}';
   }
 
-  // ============================================================
-  // FORMAT MARKET ADDRESS
-  // ============================================================
-
   String _formatMarketAddress(
     List<Map<String, dynamic>> markets, {
     required bool isVietnamese,
@@ -1168,10 +1033,6 @@ class ChatbotMarketHandler {
     return lines.join('\n');
   }
 
-  // ============================================================
-  // FORMAT MARKET OPENING HOURS
-  // ============================================================
-
   String _formatMarketOpeningHours(
     List<Map<String, dynamic>> markets, {
     required bool isVietnamese,
@@ -1219,10 +1080,6 @@ class ChatbotMarketHandler {
 
     return lines.join('\n');
   }
-
-  // ============================================================
-  // FORMAT MARKET FARMERS
-  // ============================================================
 
   String _formatMarketFarmers(
     List<Map<String, dynamic>> markets,
@@ -1293,10 +1150,6 @@ class ChatbotMarketHandler {
 
     return '$title\n${lines.join('\n')}';
   }
-
-  // ============================================================
-  // FORMAT MARKET PRODUCTS
-  // ============================================================
 
   String _formatMarketProducts(
     List<Map<String, dynamic>> markets,
@@ -1407,10 +1260,6 @@ class ChatbotMarketHandler {
     return '$title\n${lines.join('\n')}';
   }
 
-  // ============================================================
-  // MARKET DISPLAY NAME
-  // ============================================================
-
   String _marketDisplayName(
     Map<String, dynamic> market, {
     required bool isVietnamese,
@@ -1437,10 +1286,6 @@ class ChatbotMarketHandler {
 
     return nameVi;
   }
-
-  // ============================================================
-  // FARMER DISPLAY NAME
-  // ============================================================
 
   String _farmerDisplayName(
     Map<String, dynamic> farmer, {
@@ -1497,10 +1342,6 @@ class ChatbotMarketHandler {
     return nameVi;
   }
 
-  // ============================================================
-  // PRODUCT DISPLAY NAME
-  // ============================================================
-
   String _productDisplayName(
     Map<String, dynamic> product, {
     required bool isVietnamese,
@@ -1527,10 +1368,6 @@ class ChatbotMarketHandler {
 
     return nameVi;
   }
-
-  // ============================================================
-  // FIND FARMER MATCH
-  // ============================================================
 
   int _farmerMatchScore(
     String question,
@@ -1610,10 +1447,6 @@ class ChatbotMarketHandler {
     return bestScore;
   }
 
-  // ============================================================
-  // PRODUCT MATCH SCORE
-  // ============================================================
-
   int _productMatchScore(
     String question,
     Map<String, dynamic> product,
@@ -1692,10 +1525,6 @@ class ChatbotMarketHandler {
     return bestScore;
   }
 
-  // ============================================================
-  // ACTIVE MARKET
-  // ============================================================
-
   bool _isActiveMarket(
     Map<String, dynamic> market,
   ) {
@@ -1711,10 +1540,6 @@ class ChatbotMarketHandler {
         rawActive == 'true';
   }
 
-  // ============================================================
-  // ACTIVE FARMER
-  // ============================================================
-
   bool _isActiveFarmer(
     Map<String, dynamic> farmer,
   ) {
@@ -1729,10 +1554,6 @@ class ChatbotMarketHandler {
     return status != 'rejected' && status != 'inactive';
   }
 
-  // ============================================================
-  // ACTIVE PRODUCT
-  // ============================================================
-
   bool _isActiveProduct(
     Map<String, dynamic> product,
   ) {
@@ -1743,10 +1564,6 @@ class ChatbotMarketHandler {
         rawActive == '1' ||
         rawActive == 'true';
   }
-
-  // ============================================================
-  // MEANINGFUL MARKET WORDS
-  // ============================================================
 
   List<String> _meaningfulMarketWords(
     String value,
@@ -1776,10 +1593,6 @@ class ChatbotMarketHandler {
         )
         .toList();
   }
-
-  // ============================================================
-  // MEANINGFUL FARMER WORDS
-  // ============================================================
 
   List<String> _meaningfulWords(
     String value,
@@ -1822,10 +1635,6 @@ class ChatbotMarketHandler {
         .toList();
   }
 
-  // ============================================================
-  // MEANINGFUL PRODUCT WORDS
-  // ============================================================
-
   List<String> _meaningfulProductWords(
     String value,
   ) {
@@ -1862,10 +1671,6 @@ class ChatbotMarketHandler {
         .toList();
   }
 
-  // ============================================================
-  // PREFIX MATCH
-  // ============================================================
-
   bool _hasPrefixMatch(
     String question,
     String targetWord,
@@ -1883,10 +1688,6 @@ class ChatbotMarketHandler {
 
     return false;
   }
-
-  // ============================================================
-  // KEYWORD SCORE
-  // ============================================================
 
   int _keywordScore(
     String question,
@@ -1926,10 +1727,6 @@ class ChatbotMarketHandler {
     return score;
   }
 
-  // ============================================================
-  // WHOLE PHRASE
-  // ============================================================
-
   bool _containsWholePhrase(
     String text,
     String phrase,
@@ -1944,10 +1741,6 @@ class ChatbotMarketHandler {
 
     return pattern.hasMatch(text);
   }
-
-  // ============================================================
-  // LANGUAGE
-  // ============================================================
 
   bool _isVietnamese(String text) {
     if (text.trim().isEmpty) {
@@ -2019,10 +1812,6 @@ class ChatbotMarketHandler {
     );
   }
 
-  // ============================================================
-  // MAP LIST
-  // ============================================================
-
   List<Map<String, dynamic>> _mapList(
     dynamic raw,
   ) {
@@ -2038,19 +1827,11 @@ class ChatbotMarketHandler {
         .toList();
   }
 
-  // ============================================================
-  // STRING
-  // ============================================================
-
   String _stringValue(
     dynamic value,
   ) {
     return value?.toString().trim() ?? '';
   }
-
-  // ============================================================
-  // NUMBER
-  // ============================================================
 
   double? _numberValue(
     dynamic value,
@@ -2064,10 +1845,6 @@ class ChatbotMarketHandler {
     );
   }
 
-  // ============================================================
-  // FORMAT NUMBER
-  // ============================================================
-
   String _formatNumber(
     double value,
   ) {
@@ -2080,10 +1857,6 @@ class ChatbotMarketHandler {
 
     return value.toString();
   }
-
-  // ============================================================
-  // NORMALIZE
-  // ============================================================
 
   String _normalize(
     String text,
@@ -2181,10 +1954,6 @@ class ChatbotMarketHandler {
         .trim();
   }
 
-  // ============================================================
-  // CONTAINS ANY
-  // ============================================================
-
   bool _containsAny(
     String text,
     List<String> values,
@@ -2211,10 +1980,6 @@ class ChatbotMarketHandler {
     );
   }
 
-  // ============================================================
-  // MAX
-  // ============================================================
-
   int _max(
     int a,
     int b,
@@ -2222,10 +1987,6 @@ class ChatbotMarketHandler {
     return a > b ? a : b;
   }
 }
-
-// ============================================================
-// MARKET MATCH
-// ============================================================
 
 class _MarketMatch {
   const _MarketMatch({
@@ -2237,10 +1998,6 @@ class _MarketMatch {
   final int score;
 }
 
-// ============================================================
-// FARMER MATCH
-// ============================================================
-
 class _FarmerMatch {
   const _FarmerMatch({
     required this.farmer,
@@ -2250,10 +2007,6 @@ class _FarmerMatch {
   final Map<String, dynamic> farmer;
   final int score;
 }
-
-// ============================================================
-// PRODUCT MATCH
-// ============================================================
 
 class _ProductMatch {
   const _ProductMatch({

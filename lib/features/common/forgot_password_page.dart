@@ -11,9 +11,6 @@ import '../../shared_widgets/app_text_field.dart';
 import '../../shared_widgets/app_toast.dart';
 import '../../shared_widgets/empty_state.dart';
 
-/// 1.3 Quên mật khẩu — route `/auth/forgot-password`.
-/// Sau khi gửi: form chuyển thành thông báo dạng empty_state, luôn hiện
-/// cùng một thông điệp bất kể email có tồn tại hay không (chống dò email).
 class ForgotPasswordPage extends ConsumerStatefulWidget {
   const ForgotPasswordPage({super.key});
 
@@ -35,7 +32,9 @@ class _ForgotPasswordPageState extends ConsumerState<ForgotPasswordPage> {
   Future<void> _submit() async {
     setState(() => _loading = true);
     try {
-      await ref.read(authRepositoryProvider).sendPasswordResetEmail(_email.text.trim());
+      await ref
+          .read(authRepositoryProvider)
+          .sendPasswordResetEmail(_email.text.trim());
       if (mounted) setState(() => _sent = true);
     } catch (_) {
       if (mounted) Toast.error('common.auth.errorGeneric'.tr());
@@ -54,7 +53,8 @@ class _ForgotPasswordPageState extends ConsumerState<ForgotPasswordPage> {
           child: AnimatedSwitcher(
             duration: AppDurations.standard,
             switchInCurve: AppCurves.easeOut,
-            transitionBuilder: (child, animation) => FadeTransition(opacity: animation, child: child),
+            transitionBuilder: (child, animation) =>
+                FadeTransition(opacity: animation, child: child),
             child: _sent ? _buildSent(context) : _buildForm(context),
           ),
         ),
